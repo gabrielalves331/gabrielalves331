@@ -1,0 +1,737 @@
+Questão- 1. 
+/*Dados valores quaisquer para os coeficientes a,b e c da 
+expressão geral da equação do segundo grau e verificar se 
+tratar ou não de uma equação do segundo grau. Em caso
+afirmativo deve-se informar quantas raízes a equação 
+possui e seus respectivos valores
+*/
+
+#include <stdio.h>
+#include <locale.h>
+#include  <math.h>
+
+int main(){
+	
+	int a, b, c;
+	float raiz1, raiz2, Delta;
+	
+	setlocale (LC_ALL,"");
+
+//Feito por Gabriel Alves para a matéria de LELP
+	
+	printf("Insira o valor de //a//:\n");
+	scanf("%i",&a);
+	printf("Insira o valor de //b//:\n");
+	scanf("%i",&b);
+	printf("Insira o valor de //c//:\n");
+	scanf("%i",&c);
+	
+	if(a==0){
+		printf("\n\tNão é uma equação do segundo Grau!!");
+	}else{
+	printf("\n\tÉ uma equação do segundo Grau!! \n\tOnde ");
+	
+	Delta= (b*b)-(4*a*c);
+	
+	
+	if (Delta<0){
+		printf("não há raiz real!! ");
+	}else if(Delta==0){
+		printf("há duas raizes iguais, que são: ");
+	}else{
+		printf("há duas raizes diferentes, que são: ");
+	}
+	
+	raiz1=(-(b)+sqrt( Delta ))/(2*a);
+	
+	raiz2=(-(b)-sqrt( Delta ))/(2*a);
+	
+	printf("%f e %f", raiz1, raiz2);
+	
+}
+	
+	return 0;
+}
+
+
+Questão- 2. 
+/*Dados os três valores a, b, c quaisquer para os lados de um triângulo. 
+Uma vez que esses valores sejam positivos, verificar se os mesmos formam 
+realmente um triângulo, e se essa condição for verdadeira, indicar qual 
+o tipo do triângulo: isósceles, escaleno, equilátero. E
+no caso de ser triangulo escaleno informar se é retângulo ou não.
+*/
+
+#include <locale.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+	
+	int a, b, c;
+	
+	setlocale(LC_ALL, "");
+
+//Feito por Gabriel Alves para a matéria de LELP
+	
+	printf("Insira o valor do lado [a]:\n");
+	scanf("%i",&a);
+	printf("Insira o valor do lado [b]:\n");
+	scanf("%i",&b);
+	printf("Insira o valor do lado [c]:\n");
+	scanf("%i",&c);
+	
+	
+	
+if(a>0 && b>0 && c>0 && a+b>c && a+c>b && c+b>a){
+	
+		printf("\tÉ um triângulo");
+		
+	if(a==b&& b==c){
+		printf(" Equilátero!!");
+		
+	}else if(a==b||a==c||b==c){
+ 
+		printf(" Isósceles!!");
+		
+		}else{
+
+		printf(" Escaleno");
+		
+		if(a*a+b*b == c*c || a*a+c*c == b*b ||  b*b+c*c == a*a){
+			
+        printf(" retângulo");
+
+		}
+		printf("!!");
+	}
+		
+	}else {
+        printf("Os lados não formam um triângulo.\n");
+    }
+
+    return 0;
+
+}
+
+
+Questão- 3.
+/*Desenvolva um programa que receba nome e nota de três estudantes. Uma vez que as
+notas sejam positivas, o programa deve mostrar nome e nota do estudante que obteve a
+maior nota no intervalo de 2,0 a 8,0. Uma mensagem deve ser dada caso nenhum
+estudante tenha nota no intervalo de 2,0 a 8,0.
+*/
+
+#include <string.h>
+#include <locale.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+
+//Feito por Gabriel Alves para a matéria de LELP
+	
+	setlocale(LC_ALL,"");
+	
+	float Nota1,Nota2,Nota3,Nota_maior;
+	char Nome1[60],Nome2[60],Nome3[60],Nome_maior[60];
+	
+	printf("Insira o nome da primeira aluna\n\t");
+	scanf("%s",&Nome1);
+		printf("\nInsira a nota da primeira aluna\n\t");
+	scanf("%f",&Nota1);
+		printf("\nInsira o nome da segunda aluna\n\t");
+	scanf("%s",&Nome2);
+		printf("\nInsira a nota da segunda aluna\n\t");
+	scanf("%f",&Nota2);
+		printf("\nInsira o nome da terceira aluna\n\t");
+	scanf("%s",&Nome3);
+		printf("\nInsira a nota da  terceira aluna\n\t");
+	scanf("%f",&Nota3);
+	
+	if(Nota1>0 && Nota2>0 && Nota3>0){
+	
+		if(Nota1>Nota2 && Nota1>Nota3 && Nota1>=2 && Nota1<=8){
+		
+		strcpy(Nome_maior, Nome1);
+		Nota_maior=Nota1;
+		
+		}else if(Nota2>Nota_maior && Nota2>=2 && Nota2<=8){
+			
+		strcpy(Nome_maior, Nome2);
+		Nota_maior=Nota2;
+			
+		}else if(Nota3>Nota_maior && Nota3>=2 && Nota3<=8){
+			
+		strcpy(Nome_maior, Nome3 );
+		Nota_maior=Nota3;
+			
+		}
+		
+
+		
+	printf("\n\tDentre o intervalo de 2,0 a 8,0 A pessoa com maior nota é: %s, com %.1f pontos!!",Nome_maior,Nota_maior);
+	
+}else{
+	
+	printf("\n\tUma das notas inseridas é inválida!!!!!");
+	
+}
+	
+	return 0;
+}
+
+
+
+
+Questão- 4. 
+/*Desenvolva um programa que receba o nome e idade de três pessoas. O programa deve
+mostrar nome e idade da pessoa mais jovem nascida em ano bissexto. Considere o ano
+atual para efeitos de verificação de idade. Deve-se dar uma mensagem caso ninguém
+tenha nascido em ano bissexto.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+
+int main (){
+	
+	setlocale(LC_ALL, "");
+		
+// Feito por Gabriel de Santana Alves para a matéria de LELP.
+
+	int Idade, C, Idadejov, Ano, Anojov;
+	char Nome[60], Nomejov[60];
+
+	for(C=1;C<=3;C++){
+			printf("Informe o nome [%i]:\n", C); 
+			scanf("%s",&Nome);
+			printf("Informe a idade [%i]:\n", C);
+			scanf("%i",&Idade);
+	
+		Ano=2024-Idade;
+		
+	if (Ano%4==0 && Ano%100!=0 || Ano% 400 == 0){
+	
+		strcpy(Nomejov, Nome);
+			Idadejov= Idade;
+			Anojov= Ano;
+			
+    if(Idadejov<Idade && Anojov>Ano){
+    	
+		strcpy(Nomejov, Nome);
+			Idadejov= Idade;
+			Anojov=Ano;
+     }
+     
+    }	
+   }	
+		printf("A pessoa mais jovem nascida em ano bissexto é %s nascido(a) em %i com %i anos!!", Nomejov, Anojov, Idadejov);
+
+	return 0;
+}
+
+
+
+Questão- 5. 
+/*
+Dados nomes e notas de três estudantes 
+deve-se exibir nome e notas dos estudantes em ordem alfabética (A..Z). 
+Todo processamento só deve ocorrer com todas as notas válidas (valores positivos).
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+
+int main() {
+	
+	char nom1[60], nom2[60], nom3[60];
+	float nota1, nota2, nota3;
+
+setlocale(LC_ALL, "");
+
+// Feito por Gabriel de Santana Alves para a matéria de LELP.
+	
+	printf("Informe o nome do primeiro estudante: ");
+	scanf("%59s", nome1);
+	printf("Informe sua nota: ");
+	scanf("%f", &nota1);
+	
+	printf("Informe o nome do segundo estudante: ");
+	scanf("%59s", nome2);
+	printf("Informe sua nota: ");
+	scanf("%f", &nota2);
+	
+	printf("Informe o nome do terceiro estudante: ");
+	scanf("%59s", nome3);
+	printf("Informe sua nota: ");
+	scanf("%f", &nota3);
+	
+	if (nota1 >= 0 && nota2 >= 0 && nota3 >= 0) {
+		
+		if (strcmp(nome1, nome2) < 0 && strcmp(nome1, nome3) < 0) {
+			
+			printf("\nNome: %s \tNota: %.2f", nome1, nota1);
+			
+			if (strcmp(nome2, nome3) < 0) {
+				printf("\nNome: %s \tNota: %.2f", nome2, nota2);
+				printf("\nNome: %s \tNota: %.2f", nome3, nota3);
+			} else {
+				printf("\nNome: %s \tNota: %.2f", nome3, nota3);
+				printf("\nNome: %s \tNota: %.2f", nome2, nota2);
+			}
+		}
+		
+		else if (strcmp(nome2, nome1) < 0 && strcmp(nome2, nome3) < 0) {
+			
+			printf("\nNome: %s \tNota: %.2f", nome2, nota2);
+			
+			if (strcmp(nome1, nome3) < 0) {
+				printf("\nNome: %s \tNota: %.2f", nome1, nota1);
+				printf("\nNome: %s \tNota: %.2f", nome3, nota3);
+			} else {
+				printf("\nNome: %s \tNota: %.2f", nome3, nota3);
+				printf("\nNome: %s \tNota: %.2f", nome1, nota1);
+			}
+		}
+		else if (strcmp(nome3, nome1) < 0 && strcmp(nome3, nome2)) {
+			
+			printf("\nNome: %s \tNota: %.2f", nome3, nota3);
+			
+			if (strcmp(nome1, nome2) < 0) {
+				printf("\nNome: %s \tNota: %.2f", nome1, nota1);
+				printf("\nNome: %s \tNota: %.2f", nome2, nota2);
+			} else {
+				printf("\nNome: %s \tNota: %.2f", nome2, nota2);
+				printf("\nNome: %s \tNota: %.2f", nome1, nota1);
+			}
+		}
+		
+	} else {
+		printf("\n As notas informadas são inválidas.");
+	}
+	
+	return 0;
+}
+
+
+
+
+
+
+Questão- 6. 
+
+/*Desenvolva um programa que receba um número inteiro no intervalo fechado entre 1 e
+9999 e mostre seu extenso usando no máximo cinco instruções de exibição (printf). Exiba
+uma mensagem de erro se o número estiver fora do intervalo.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <string.h>
+
+int main(){
+	
+	int num, u, d,c, m;
+	
+	char mtxt[50], ctxt[50], dtxt[50], utxt[50], ntxt[100],ecd[8], edu[8];
+	
+	setlocale(LC_ALL, "");
+	
+	//Feito por Gabriel Alves para a matéria de LELP
+	
+	printf("Insira um número de 1 á 9999:\n\t");
+	scanf("%i",&num);
+	
+	if(num>=1 && num<=9999){
+		
+		m= num/1000;
+		c= num % 1000 /100;
+		d= num % 1000 % 100 / 10; 
+		u= num % 1000 % 100 % 10;
+		
+		strcpy(ntxt,"");
+		strcpy(mtxt,"");
+		strcpy(ctxt,"");
+		strcpy(dtxt,"");
+		strcpy(utxt,"");
+	
+	switch (u){
+		
+		case 1:strcpy(utxt,"um"); break;
+		
+		case 2:strcpy(utxt,"dois"); break;
+		
+		case 3:strcpy(utxt,"três"); break;
+		
+		case 4:strcpy(utxt,"quatro"); break;
+		
+		case 5:strcpy(utxt,"cinco"); break;
+		
+		case 6:strcpy(utxt,"seis"); break;
+		
+		case 7:strcpy(utxt,"sete"); break;
+		
+		case 8:strcpy(utxt,"oito"); break;
+		
+		case 9:strcpy(utxt,"nove"); break;
+	
+	}
+		
+	switch(d){
+		
+	case 1:switch(u){
+		case 0: strcpy(dtxt,"dez"); break;
+		
+		case 1: strcpy(dtxt,"onze"); break;
+		
+		case 2: strcpy(dtxt,"doze"); break;
+		
+		case 3: strcpy(dtxt,"treze"); break;
+		
+		case 4: strcpy(dtxt,"quatorze"); break;
+		
+		case 5: strcpy(dtxt,"quinze"); break;
+		
+		case 6: strcpy(dtxt,"dezeseis"); break;
+		
+		case 7: strcpy(dtxt,"dezesete"); break;
+		
+		case 8: strcpy(dtxt,"dezoito"); break;
+		
+		case 9: strcpy(dtxt,"dezenove"); break;}
+		
+		strcpy(utxt,"");
+		
+	break;
+	
+	case 2: strcpy(dtxt,"vinte"); break;
+	
+	case 3: strcpy(dtxt,"trinta"); break;
+	
+	case 4: strcpy(dtxt,"quarenta"); break;
+	
+	case 5: strcpy(dtxt,"cinquenta"); break;
+	
+	case 6: strcpy(dtxt,"sessenta"); break;
+	
+	case 7: strcpy(dtxt,"setenta"); break;
+	
+	case 8: strcpy(dtxt,"oitenta"); break;
+	
+	case 9: strcpy(dtxt,"noventa"); break;
+		
+	}
+	
+	switch (c){
+		case 1: if(d==0 && u==0){
+			strcpy(ctxt,"cem"); 
+	}else{
+		strcpy(ctxt,"cento");
+	}break;
+		case 2:strcpy(ctxt,"duzentos"); break;
+		
+		case 3:strcpy(ctxt,"trezentos"); break;
+		
+		case 4:strcpy(ctxt,"quatrocentos"); break;
+		
+		case 5:strcpy(ctxt,"quinhentos"); break;
+		
+		case 6:strcpy(ctxt,"seiscentos"); break;
+		
+		case 7:strcpy(ctxt,"setecentos"); break;
+		
+		case 8:strcpy(ctxt,"oitocentos"); break;
+		
+		case 9:strcpy(ctxt,"novecentos"); break;
+	}	
+	
+	switch (m){
+		
+		case 1:strcpy(mtxt,"mil"); break;
+		
+		case 2:strcpy(mtxt,"dois mil"); break;
+		
+		case 3:strcpy(mtxt,"três mil"); break;
+		
+		case 4:strcpy(mtxt,"quatro mil"); break;
+		
+		case 5:strcpy(mtxt,"cinco mil"); break;
+		
+		case 6:strcpy(mtxt,"seis mil"); break;
+		
+		case 7:strcpy(mtxt,"sete mil"); break;
+		
+		case 8:strcpy(mtxt,"oito mil"); break;
+		
+		case 9:strcpy(mtxt,"nove mil"); break;
+	}
+	
+	strcpy(ecd," ");
+	strcpy(edu," ");
+	
+	
+if(strcmp(ctxt,"")!=0 && strcmp(dtxt,"")!=0 && strcmp(utxt,"")!=0){
+	
+	strcpy(ecd," e ");
+
+		
+}else if ((strcmp(mtxt,"")!=0 && strcmp(dtxt,"")!=0) || (strcmp(ctxt,"")!=0 && strcmp(dtxt,"")!=0) ){
+	
+	strcpy(edu," e ");
+}else if (strcmp(mtxt,"")!=0 && strcmp(utxt,"")!=0){
+	
+}
+
+	strcat(ntxt,mtxt);	
+	strcat(ntxt,ctxt);
+	strcat(ntxt,ecd);
+	strcat(ntxt,dtxt);	
+	strcat(ntxt,edu);
+	strcat(ntxt,utxt);
+
+	printf("\n\t %i = %s\n", num, ntxt);
+		
+	}else{
+		printf("Valor inválido!!");
+	}
+	
+	
+	return 0;
+}
+
+
+
+
+Questão- 7. 
+/*Desenvolva um programa que receba o nome de uma cidade, o mês (numérico) e o ano. A
+partir dessas informações deve ser exibido uma mensagem no formato "<cidade>, hoje
+estamos em <mes_extenso> de <ano>". Para o caso da cidade informada ser Camaçari,
+mês 7 e ano 2023, a mensagem "Camaçari, hoje estamos em julho de 2023". Uma
+mensagem deve ser exibida para meses e anos inválidos. Considere mês válido valores
+entre 1 e 12, e ano valores entre 1 e 3000.
+*/
+
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <locale.h>
+
+int main(){
+	
+	setlocale(LC_ALL,"");
+	
+	//Feito por Gabriel ALves para a matéria de LELP
+	
+	int mes, ano;
+	char cidade[50], mes_nome[50];
+	
+	printf("Insira o nome da Cidade a ser documentada:\n\t");
+	scanf("%s",&cidade);
+	printf("Insira o número do mês a ser documentado:\n\t");
+	scanf("%i",&mes);
+	printf("Insira o ano a ser documentado:\n\t");
+	scanf("%i",&ano);
+	
+	
+if(mes>=1 && mes<=12 && ano>=1 && ano<=3000){
+
+	switch(mes){
+		
+			case 1:
+			strcpy(mes_nome, "Janeiro");
+			break;
+			
+			case 2:
+			strcpy(mes_nome, "Fevereiro");
+			break;
+			
+			case 3:
+			strcpy(mes_nome, "Março");
+			break;
+			
+			case 4:
+			strcpy(mes_nome, "Abril");
+			break;
+			
+			case 5:
+			strcpy(mes_nome, "Maio");
+			break;
+			
+			case 6:
+			strcpy(mes_nome, "Junho");
+			break;
+			
+			case 7:
+			strcpy(mes_nome, "Julho");
+			break;
+			
+			case 8:
+			strcpy(mes_nome, "Agosto");
+			break;
+			
+			case 9:
+			strcpy(mes_nome, "Setembro");
+			break;
+			
+			case 10:
+			strcpy(mes_nome, "Outubro");
+			break;
+			
+			case 11:
+			strcpy(mes_nome, "Novembro");
+			break;
+			
+			case 12:
+			strcpy(mes_nome, "Dezembro");
+			break;
+	deafult:
+		printf("Mês inválido!!!");
+		
+	}	
+printf("%s. Hoje estamos em %s de %i!!", cidade, mes_nome, ano);
+
+}else{
+	printf("Ano ou Mês inválido!!");
+}
+
+	return 0;
+}
+
+
+Questão- 8. 
+/*Desenvolva um programa que a partir do dia e do mês de nascimento de uma pessoa
+informe seu signo baseado na tabela a seguir:
+
+Aquário 22/01 a 18/02 | Leão 22/07 a 22/08
+Peixes 19/02 a 19/03  | Virgem 23/08 a 22/09
+Áries 20/03 a 20/04   | Libra 23/09 a 22/10
+Touro 21/04 a 20/05   | Escorpião 23/10 a 21/11
+Gêmeos 21/05 a 20/06  | Sagitário 22/11 a 21/12
+Câncer 21/06 a 21/07  | Capricórnio 22/12 a 21/01
+
+*/
+
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <locale.h>
+
+int main(){	
+
+	int mes, dia;
+	char signo[50],signo_nome[50];
+	
+	setlocale(LC_ALL,"");
+	
+	//Feito por Gabriel ALves para a matéria de LELP
+	
+	printf("Digite o dia do seu nascimento: ");
+    scanf("%i", &dia);
+
+    printf("Digite o mês do seu nascimento (em número): ");
+    scanf("%i", &mes);
+	
+if (mes <  1 || mes > 12 || dia <1 || dia >31) {
+        printf("Mês  ou dia inválido.\n");	
+}else{
+
+switch(mes){
+			 case 1:
+                if(dia >= 22) {
+                    strcpy(signo_nome, "Aquário");
+                } else {
+                    strcpy(signo_nome, "Capricórnio");
+                }
+                break;
+            case 2:
+                if(dia >= 19) {
+                    strcpy(signo_nome, "Peixes");
+                } else {
+                    strcpy(signo_nome, "Aquário");
+                }
+                break;
+            case 3:
+                if(dia >= 20) {
+                    strcpy(signo_nome, "Áries");
+                } else {
+                    strcpy(signo_nome, "Peixes");
+                }
+                break;
+            case 4:
+                if(dia >= 21) {
+                    strcpy(signo_nome, "Touro");
+                } else {
+                    strcpy(signo_nome, "Áries");
+                }
+                break;    
+            case 5:
+                if(dia >= 21) {
+                    strcpy(signo_nome, "Gêmeos");
+                } else {
+                    strcpy(signo_nome, "Touro");
+                }
+                break;
+            case 6:
+                if(dia >= 21) {
+                    strcpy(signo_nome, "Câncer");
+                } else {
+                    strcpy(signo_nome, "Gêmeos");
+                }
+                break;
+            case 7:
+                if(dia >= 22) {
+                    strcpy(signo_nome, "Leão");
+                } else {
+                    strcpy(signo_nome, "Câncer");
+                }
+                break;
+            case 8:
+                if(dia >= 23) {
+                    strcpy(signo_nome, "Virgem");
+                } else {
+                    strcpy(signo_nome, "Leão");
+                }
+                break;
+            case 9:            
+                if(dia >= 23) {
+                    strcpy(signo_nome, "Libra");
+                } else {
+                    strcpy(signo_nome, "Virgem");
+                }
+                break;
+            case 10:    
+                if(dia >= 23) {
+                    strcpy(signo_nome, "Escorpião");
+                } else {
+                    strcpy(signo_nome, "Libra");
+                }
+                break;
+            case 11:
+                if(dia >= 22) {
+                    strcpy(signo_nome, "Sagitário");
+                } else {
+                    strcpy(signo_nome, "Escorpião");
+                }
+                break;
+            case 12:
+                if(dia >= 22) {
+                    strcpy(signo_nome, "Capricórnio");
+                } else {
+                    strcpy(signo_nome, "Sagitário");
+                }
+                break;
+				
+	default:
+		printf("Mês inválido!!!");
+}
+
+printf("A pessoa nascida em %i do mes %i é de %s!!", dia, mes, signo_nome);
+}
+	return 0;
+}
