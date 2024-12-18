@@ -1,0 +1,1160 @@
+Questão 1
+
+/*Desenvolva um programa que preencha 
+uma matriz de tamanho 6 × 8 com
+números inteiros obrigatoriamente 
+positivos. Em seguida mostre o maior 
+número primo contido nessa matriz e 
+a sua localização (linha e coluna).*/
+
+#include <stdio.h>
+#include <locale.h>
+#define lin 6
+#define col 8  
+
+// Função para capturar os números da matriz, garantindo que sejam positivos
+
+void entrada(int M[lin][col]) 
+
+{
+    for (int i = 0; i < lin; i++) 
+	{
+        for (int j = 0; j < col; j++) 
+		{
+            do 
+			{
+                printf("\n\tInforme o número [%d, %d] (positivo): ", i + 1, j + 1);
+                scanf("%d", &M[i][j]);
+                if (M[i][j] <= 0) 
+				{
+                    printf("Número inválido! Digite um número positivo.\n");
+                }
+            } while (M[i][j] <= 0);
+        }
+    }
+}
+
+// Função para verificar se um número é primo
+int ehPrimo(int num) 
+{
+    if (num < 2) return 0;
+    for (int i = 2; i * i <= num; i++) 
+	{
+        if (num % i == 0) return 0;
+    }
+    return 1;
+}
+
+// Função para encontrar o maior número primo e sua posição na matriz
+void maiorPrimo(int M[lin][col], int *maior, int *linha, int *coluna) 
+{
+    *maior = -1;  // Inicializa o maior como -1 (caso não tenha nenhum primo)
+    for (int i = 0; i < lin; i++) 
+	{
+        for (int j = 0; j < col; j++) 
+		{
+            if (ehPrimo(M[i][j])) 
+			{
+                if (M[i][j] > *maior) 
+				{
+                    *maior = M[i][j];
+                    *linha = i;
+                    *coluna = j;
+                }
+            }
+        }
+    }
+}
+
+// Função de saída para mostrar o maior número primo e sua localização
+void saida(int maior, int linha, int coluna) 
+{
+    if (maior != -1) 
+	{
+        printf("\n\tO maior número primo da matriz é %i!\n\tEncontrado na linha %i e coluna %i!!\n", maior, linha + 1, coluna + 1);
+    } else 
+	{
+        printf("\n\tNenhum número primo foi encontrado na matriz.\n");
+    }
+}
+
+// Programa principal
+int main() 
+{
+    setlocale(LC_ALL,"");
+
+    int m[lin][col];
+    int maior_num, linha, coluna;
+
+    // Entrada 
+    entrada(m);
+
+    // maior número primo e sua localização
+    maiorPrimo(m, &maior_num, &linha, &coluna);
+
+    // Saída 
+    saida(maior_num, linha, coluna);
+
+    return 0;
+}
+
+
+
+Questão 2
+
+/*Desenvolver um programa que preencha uma matriz 4x4 e mostre o número de
+linhas e o número de colunas nulas da matriz. Uma coluna ou linha será nula se
+todos os seus elementos são zeros.*/
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <locale.h>
+#define lin 4
+#define col 4
+
+void matrix(int mat[][col],int link,int colink)
+{
+	for(int i=0;i<link;i++)
+{
+		for(int j=0;j<colink;j++
+{
+			printf("Insira numero[%i][%i]: ",i+1,j+1);
+			scanf("%i",&mat[i][j]);
+		}
+	}
+}
+
+void cont(int mat[][col],int link, int colink,int *lnc,int *lcc)
+{
+	int ln,cn;
+	(*lnc)=0;
+	(*lcc)=0;
+	for(int i=0;i<link;i++)
+{
+		ln=0;
+		for(int j=0;j<colink;j++)
+{
+			if(mat[i][j]==0)
+{
+				ln++;
+			}
+		}
+		if(ln==link)
+{
+			(*lnc)++;
+		}
+	}
+	for(int j=0;j<colink;j++)
+{
+		cn=0;
+		for(int i=0;i<link;i++)
+{
+			if(mat[i][j]==0)
+{
+				cn++;
+			}
+		}
+		if(cn==colink)
+{
+			(*lcc)++;
+		}
+	}
+}
+
+void sai(int mat[][col],int link, int colink,int lnc,int lcc)
+{
+	for(int i=0;i<link;i++){
+		for(int j=0;j<colink;j++)
+{
+			printf("%i ",mat[i][j]);
+		}
+		printf("\n");
+	}
+	printf("Linhas Nulas: %i\nColunas Nulas: %i",lnc,lcc);
+}
+
+int main()
+{
+	setlocale(LC_ALL,"Portuguese");
+	int mat[lin][col],lnc,lcc;
+	
+	matrix(mat,lin,col);
+	cont(mat,lin,col,&lnc,&lcc);
+	sai(mat,lin,col,lnc,lcc);
+	
+	return 0;
+}
+
+
+Questão 3
+
+/*Desenvolver um programa capaz de preencher 
+uma matriz quadrada 3x3. Após preenchimento, 
+o programa deve informar se a matriz é 
+triangular inferior.*/
+
+#include <stdio.h>
+#include <locale.h>
+#define lin 3
+#define col 3 
+
+// Função para capturar os números da matriz, garantindo que sejam positivos
+void entrada(int M[lin][col]) 
+{
+    for (int i = 0; i < lin; i++) 
+    {
+        for (int j = 0; j < col; j++) 
+        {
+            do 
+            {
+                printf("\n\tInforme o número [%d, %d] (positivo): ", i + 1, j + 1);
+                scanf("%d", &M[i][j]);
+                if (M[i][j] < 0) 
+                {
+                    printf("Número inválido! Digite um número positivo.\n");
+                }
+            } while (M[i][j] < 0);
+        }
+    }
+}
+
+// Função para verificar se a matriz é triangular inferior
+int eh_trian_inf(int M[lin][col]) 
+{
+    for (int i = 0; i < lin; i++) 
+    {
+        for (int j = i + 1; j < col; j++)  // Verifica apenas os elementos acima da diagonal
+        {
+            if (M[i][j] != 0) 
+            {
+                return 0;  // Não é triangular inferior
+            }
+        }
+    }
+    return 1;  // É triangular inferior
+}
+
+// Função de saída para mostrar se a matriz é ou não triangular inferior
+
+void saida(int resp) 
+{
+    if (resp) 
+    {
+        printf("\n\tA Matrix é REAL!!!! Mentira, é uma matriz triangular inferior.\n");
+    } else 
+    {
+        printf("\n\tA Matrix é REAL!!!! Mentira, não é uma matriz triangular inferior.\n");
+    }
+}
+
+// Programa principal
+int main() 
+{
+    setlocale(LC_ALL,"");
+
+    int m[lin][col];
+    int resp;
+
+    // Entrada 
+    entrada(m);
+
+    // Verifica se é triangular inferior
+    resp = eh_trian_inf(m);
+
+    // Saída 
+    saida(resp);
+
+    return 0;
+}
+
+
+Questão 4
+
+/*Desenvolver um programa capaz de preencher 
+uma matriz quadrada 4x4. Após o preenchimento, 
+o programa deve informar se a matriz é 
+triangular superior.*/
+
+#include <stdio.h>
+#include <locale.h>
+#define lin 4
+#define col 4
+
+// Função para capturar os números da matriz, garantindo que sejam positivos
+void entrada(int M[lin][col]) 
+{
+    for (int i = 0; i < lin; i++) 
+    {
+        for (int j = 0; j < col; j++) 
+        {
+            do 
+            {
+                printf("\n\tInforme o número [%d, %d] (positivo): ", i + 1, j + 1);
+                scanf("%d", &M[i][j]);
+                if (M[i][j] < 0) 
+                {
+                    printf("Número inválido! Digite um número positivo.\n");
+                }
+            } while (M[i][j] < 0);
+        }
+    }
+}
+
+// Função para verificar se a matriz é triangular inferior
+int eh_trian_sup(int M[lin][col]) 
+{
+    for (int i = 0; i < lin; i++) 
+    {
+        for (int j = 0; j < i; j++)  // Verifica apenas os elementos abaixo da diagonal
+        {
+            if (M[i][j] != 0) //Se algum elemento abaixo da diagonal for diferente de zero, não é triangular superior
+            {
+                return 0;  // Não é triangular inferior
+            }
+        }
+    }
+    return 1;  // Se todos os elementos abaixo da diagonal forem zero, é triangular superior
+}
+
+// Função de saída para mostrar se a matriz é ou não triangular inferior
+
+void saida(int resp, int M[lin][col]) 
+{
+
+    printf("\n\t+-----+-----+-----+-----+\n");
+    for (int i = 0; i < lin; i++) 
+    {
+        printf("\t|");
+        for (int j = 0; j < col; j++) 
+        {
+            printf(" %3d |", M[i][j]);  // Exibe cada número com alinhamento
+        }
+        printf("\n\t+-----+-----+-----+-----+\n");
+    }
+	
+    if (resp) 
+    {
+        printf("\n\tA Matrix é REAL!!!! Mentira, é uma matriz triangular superior.\n");
+    } else 
+    {
+        printf("\n\tA Matrix é REAL!!!! Mentira, não é uma matriz triangular superior.\n");
+    }
+}
+
+// Programa principal
+int main() 
+{
+    setlocale(LC_ALL,"");
+
+    int m[lin][col];
+    int resp;
+
+    // Entrada 
+    entrada(m);
+
+    // Verifica se é triangular superior
+    resp = eh_trian_sup(m);
+
+    // Saída 
+    saida(resp, m);
+
+    return 0;
+}
+
+
+Questão 5
+
+/*Desenvolver um programa capaz de preencher 
+uma matriz quadrada de ordem n, onde n é um 
+número obrigatoriamente positivo menor ou 
+igual a vinte. Após preenchimento, o programa 
+deve informar se é uma matriz diagonal ou
+identidade.*/
+
+#include <stdio.h>
+#include <locale.h>
+#define MAX 20
+
+//subprogramas
+
+//entrada
+
+void entrada_num(int *num) {
+    do {
+        printf("Insira o valor de n (1 a 20): ");
+        scanf("%i", num);
+    } while (*num <= 0 || *num > MAX);
+}
+
+//  Função para capturar os números da matriz garantindo que sejam positivos
+
+void entrada_matriz(int M[MAX][MAX], int n) 
+{
+    for (int i = 0; i < n; i++) 
+	{
+        for (int j = 0; j < n; j++) 
+		{
+            do 
+			{
+				
+                printf("\n\tInforme o número [%d, %d]: ", i + 1, j + 1);
+                scanf("%d", &M[i][j]);
+                
+            } while (M[i][j] < 0);
+        }
+    }
+}
+
+// Função para verificar se a matriz é diagonal
+int eh_diagonal(int M[MAX][MAX], int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i != j && M[i][j] != 0) {
+                return 0; // Não é diagonal
+            }
+        }
+    }
+    return 1; // É diagonal
+}
+
+// Função para verificar se a matriz é identidade
+int eh_identidade(int M[MAX][MAX], int n) 
+{
+    for (int i = 0; i < n; i++) 
+	{
+        for (int j = 0; j < n; j++) 
+		{
+            if (i == j && M[i][j] != 1) 
+			{
+                return 0; // Não é identidade
+            }
+            if (i != j && M[i][j] != 0) 
+			{
+                return 0; // Não é identidade
+            }
+        }
+    }
+    return 1; // É identidade
+}
+// Função de saída para mostrar a matriz 
+
+// Função de saída para mostrar a matriz
+void saida(int M[MAX][MAX], int n, int x, int y) 
+
+{
+    printf("\nMatriz:\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("%3d ", M[i][j]);
+        }
+        printf("\n");
+    }
+    
+	// Verificações
+	if (x) {
+        printf("\nA matriz é uma matriz identidade.\n");
+    } else if (y) {
+        printf("\nA matriz é uma matriz diagonal.\n");
+    } else {
+        printf("\nA matriz não é nem identidade nem diagonal.\n");
+    }
+}
+
+// Programa principal
+
+int main() 
+
+{
+    setlocale(LC_ALL,"");
+
+    int m[MAX][MAX];
+    int n, x, y;
+
+    // Entrada 
+    
+    entrada_num(&n);
+    
+    //entrada matriz
+    entrada_matriz(m, n );
+
+    // Verifica se é matriz de identidade 
+
+   	x=	eh_identidade(m, n); 
+   
+    //Verifica se é diagonal
+
+	y=	eh_diagonal(m, n);
+    
+// Saída da matriz
+    saida(m, n, x, y);
+    
+    return 0;
+}
+
+
+Questão 6
+
+/*Uma matriz quadrada inteira é um quadrado mágico se a soma dos elementos de
+cada linha, a soma dos elementos de cada coluna e a soma dos elementos das
+diagonais principal e secundária são todas iguais. Por exemplo, a matriz
+
+
+        |  8    0    7    | 
+A =  |  4    5    6    | 
+        |  3  10    2    | 
+
+é um quadrado mágico. Desenvolver um programa que preencha uma matriz
+quadrada 3x3 e informe se ela é ou não um quadrado mágico.*/
+#include <stdio.h>
+
+#define TAM 3  // Tamanho da matriz 3x3
+
+// Subprograma de entrada: responsável por preencher a matriz
+void entradaMatriz(int matriz[TAM][TAM]) {
+    printf("Digite os valores da matriz 3x3:\n");
+    for (int i = 0; i < TAM; i++) {
+        for (int j = 0; j < TAM; j++) {
+            printf("Elemento [%d][%d]: ", i, j);
+            scanf("%d", &matriz[i][j]);
+        }
+    }
+}
+
+// Subprograma de computação: verifica se a matriz é um quadrado mágico
+int eQuadradoMagico(int matriz[TAM][TAM]) {
+    int somaEsperada = 0;
+    int somaLinha, somaColuna;
+    int somaDiagonalPrincipal = 0, somaDiagonalSecundaria = 0;
+
+    // Calcula a soma da primeira linha para ser a soma de referência
+    for (int i = 0; i < TAM; i++) {
+        somaEsperada += matriz[0][i];
+    }
+
+    // Verifica a soma de cada linha
+    for (int i = 0; i < TAM; i++) {
+        somaLinha = 0;
+        for (int j = 0; j < TAM; j++) {
+            somaLinha += matriz[i][j];
+        }
+        if (somaLinha != somaEsperada) {
+            return 0;  // Não é um quadrado mágico
+        }
+    }
+
+    // Verifica a soma de cada coluna
+    for (int j = 0; j < TAM; j++) {
+        somaColuna = 0;
+        for (int i = 0; i < TAM; i++) {
+            somaColuna += matriz[i][j];
+        }
+        if (somaColuna != somaEsperada) {
+            return 0;  // Não é um quadrado mágico
+        }
+    }
+
+    // Verifica a soma da diagonal principal
+    for (int i = 0; i < TAM; i++) {
+        somaDiagonalPrincipal += matriz[i][i];
+    }
+    if (somaDiagonalPrincipal != somaEsperada) {
+        return 0;  // Não é um quadrado mágico
+    }
+
+    // Verifica a soma da diagonal secundária
+    for (int i = 0; i < TAM; i++) {
+        somaDiagonalSecundaria += matriz[i][TAM - i - 1];
+    }
+    if (somaDiagonalSecundaria != somaEsperada) {
+        return 0;  // Não é um quadrado mágico
+    }
+
+    return 1;  // É um quadrado mágico
+}
+
+// Subprograma de saída: exibe o resultado
+void saidaResultado(int resultado) {
+    if (resultado) {
+        printf("A matriz é um quadrado mágico!\n");
+    } else {
+        printf("A matriz NÃO é um quadrado mágico.\n");
+    }
+}
+
+// Programa principal
+int main() {
+    int matriz[TAM][TAM];
+    
+    // Subprograma de entrada: preenche a matriz
+    entradaMatriz(matriz);
+
+    // Subprograma de computação: verifica se é um quadrado mágico
+    int resultado = eQuadradoMagico(matriz);
+
+    // Subprograma de saída: mostra o resultado
+    saidaResultado(resultado);
+
+    return 0;
+}
+
+
+
+Questão 7
+
+/*Desenvolva um programa que receba uma matriz 8 × 6 de números. Deve-se
+assegurar que não haverá números repetidos na matriz. E sempre que um novo
+elemento estiver para ser incluído na matriz, uma mensagem deve ser dada caso o
+número já exista na matriz. Após preenchimento deve-se exibir a matriz na ordem
+inversa das colunas, ou seja, da última coluna para a primeira.*/
+
+#include <stdio.h>
+
+#define LINHAS 6
+#define COLUNAS 8
+
+// Função para verificar se o número já existe na matriz
+int numeroJaExiste(int matriz[LINHAS][COLUNAS], int linhas, int colunas, int numero) {
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
+            if (matriz[i][j] == numero) {
+                return 1;  // O número já existe
+            }
+        }
+    }
+    return 0;  // O número não existe
+}
+
+// Função para preencher a matriz, garantindo que não haja números repetidos
+void preencherMatriz(int matriz[LINHAS][COLUNAS]) {
+    int numero;
+    for (int i = 0; i < LINHAS; i++) {
+        for (int j = 0; j < COLUNAS; j++) {
+            do {
+                printf("Digite o valor para a posição [%d][%d]: ", i+1, j+1);
+                scanf("%d", &numero);
+                
+                if (numeroJaExiste(matriz, LINHAS, COLUNAS, numero)) {
+                    printf("Número já existe! Digite outro número.\n");
+                }
+            } while (numeroJaExiste(matriz, LINHAS, COLUNAS, numero));  // Repetir até que o número seja único
+            
+            matriz[i][j] = numero;  // Insere o número na matriz
+        }
+    }
+}
+
+// Função para exibir a matriz com as colunas na ordem inversa
+void exibirMatrizInversa(int matriz[LINHAS][COLUNAS]) {
+    printf("Matriz com as colunas invertidas:\n");
+    for (int i = 0; i < LINHAS; i++) {
+        for (int j = COLUNAS - 1; j >= 0; j--) {  // Exibe as colunas da última para a primeira
+            printf("%d ", matriz[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int matriz[LINHAS][COLUNAS] = {0};  // Inicializa a matriz com zeros
+
+    // Preenchendo a matriz
+    preencherMatriz(matriz);
+
+    // Exibindo a matriz com as colunas invertidas
+    exibirMatrizInversa(matriz);
+
+    return 0;
+}
+
+
+
+
+
+Questão 8
+
+/*Desenvolver um programa que receba cinquenta produtos e seus respectivos
+preços em cada mês do ano. Após preenchimento de dados, o programa deve
+exibir nome e média anual de cada produto e nome e preço dos dois produtos de
+maiores médias anuais.*/
+
+#include <stdio.h>
+#include <string.h>
+
+#define NUM_PRODUTOS 50
+#define MESES 12
+
+// Estrutura para armazenar os dados de um produto
+struct Produto {
+    char nome[50];
+    float precoMensal[MESES];  // Preço para cada um dos 12 meses
+    float mediaAnual;          // Média anual dos preços
+};
+
+// Função para preencher os dados dos produtos
+void preencherProdutos(struct Produto produtos[NUM_PRODUTOS]) {
+    for (int i = 0; i < NUM_PRODUTOS; i++) {
+        printf("Digite o nome do produto %d: ", i + 1);
+        scanf("%s", produtos[i].nome);
+
+        float soma = 0;
+        for (int j = 0; j < MESES; j++) {
+            printf("Digite o preço do mês %d para o produto %s: ", j + 1, produtos[i].nome);
+            scanf("%f", &produtos[i].precoMensal[j]);
+            soma += produtos[i].precoMensal[j];
+        }
+
+        // Calcula a média anual dos preços
+        produtos[i].mediaAnual = soma / MESES;
+    }
+}
+
+// Função para exibir os dados dos produtos (nome e média anual)
+void exibirProdutos(struct Produto produtos[NUM_PRODUTOS]) {
+    printf("\n=== Média Anual dos Produtos ===\n");
+    for (int i = 0; i < NUM_PRODUTOS; i++) {
+        printf("Produto: %s, Média Anual: %.2f\n", produtos[i].nome, produtos[i].mediaAnual);
+    }
+}
+
+// Função para encontrar os dois produtos com maiores médias anuais
+void exibirDoisMaiores(struct Produto produtos[NUM_PRODUTOS]) {
+    // Inicialmente, considera os dois primeiros produtos
+    struct Produto maior1 = produtos[0];
+    struct Produto maior2 = produtos[1];
+
+    // Verifica se o segundo produto tem média maior que o primeiro
+    if (maior2.mediaAnual > maior1.mediaAnual) {
+        struct Produto temp = maior1;
+        maior1 = maior2;
+        maior2 = temp;
+    }
+
+    // Verifica o restante dos produtos
+    for (int i = 2; i < NUM_PRODUTOS; i++) {
+        if (produtos[i].mediaAnual > maior1.mediaAnual) {
+            maior2 = maior1;  // O maior1 se torna o segundo maior
+            maior1 = produtos[i];
+        } else if (produtos[i].mediaAnual > maior2.mediaAnual) {
+            maior2 = produtos[i];
+        }
+    }
+
+    // Exibe os dois produtos com maiores médias
+    printf("\n=== Produtos com Maiores Médias Anuais ===\n");
+    printf("1º: %s, Média Anual: %.2f\n", maior1.nome, maior1.mediaAnual);
+    printf("2º: %s, Média Anual: %.2f\n", maior2.nome, maior2.mediaAnual);
+}
+
+int main() {
+    struct Produto produtos[NUM_PRODUTOS];
+
+    // Preencher os produtos e seus preços
+    preencherProdutos(produtos);
+
+    // Exibir os produtos com suas médias anuais
+    exibirProdutos(produtos);
+
+    // Exibir os dois produtos com as maiores médias anuais
+    exibirDoisMaiores(produtos);
+
+    return 0;
+}
+
+
+
+Questão 9
+
+/*Dado uma relação de nomes de trinta produtos e três cotações de preços para cada
+um deles deve-se desenvolver um programa que mostre nomes e cotações
+daqueles produtos nos quais a média das três cotações seja menor que a média
+dos menores preços de cada produto.*/
+
+#include <stdio.h>
+
+#define NUM_PRODUTOS 30
+#define NUM_COTACOES 3
+
+// Estrutura para armazenar os dados de um produto
+struct Produto {
+    char nome[50];
+    float cotacoes[NUM_COTACOES];  // As três cotações de preços
+    float mediaCotacoes;           // Média das três cotações
+};
+
+// Função para calcular a média de três cotações de um produto
+float calcularMediaCotacoes(float cotacoes[NUM_COTACOES]) {
+    float soma = 0;
+    for (int i = 0; i < NUM_COTACOES; i++) {
+        soma += cotacoes[i];
+    }
+    return soma / NUM_COTACOES;
+}
+
+// Função para encontrar o menor preço de três cotações de um produto
+float encontrarMenorPreco(float cotacoes[NUM_COTACOES]) {
+    float menor = cotacoes[0];
+    for (int i = 1; i < NUM_COTACOES; i++) {
+        if (cotacoes[i] < menor) {
+            menor = cotacoes[i];
+        }
+    }
+    return menor;
+}
+
+// Função para preencher os dados dos produtos
+void preencherProdutos(struct Produto produtos[NUM_PRODUTOS]) {
+    for (int i = 0; i < NUM_PRODUTOS; i++) {
+        printf("Digite o nome do produto %d: ", i + 1);
+        scanf("%s", produtos[i].nome);
+
+        for (int j = 0; j < NUM_COTACOES; j++) {
+            printf("Digite a cotação %d para o produto %s: ", j + 1, produtos[i].nome);
+            scanf("%f", &produtos[i].cotacoes[j]);
+        }
+
+        // Calcula e armazena a média das cotações para cada produto
+        produtos[i].mediaCotacoes = calcularMediaCotacoes(produtos[i].cotacoes);
+    }
+}
+
+// Função para calcular a média dos menores preços de cada produto
+float calcularMediaMenoresPrecos(struct Produto produtos[NUM_PRODUTOS]) {
+    float somaMenoresPrecos = 0;
+    for (int i = 0; i < NUM_PRODUTOS; i++) {
+        float menorPreco = encontrarMenorPreco(produtos[i].cotacoes);
+        somaMenoresPrecos += menorPreco;
+    }
+    return somaMenoresPrecos / NUM_PRODUTOS;
+}
+
+// Função para exibir produtos cuja média das cotações seja menor que a média dos menores preços
+void exibirProdutosAbaixoMedia(struct Produto produtos[NUM_PRODUTOS], float mediaMenoresPrecos) {
+    printf("\n=== Produtos com média de cotações abaixo da média dos menores preços ===\n");
+    for (int i = 0; i < NUM_PRODUTOS; i++) {
+        if (produtos[i].mediaCotacoes < mediaMenoresPrecos) {
+            printf("Produto: %s\n", produtos[i].nome);
+            printf("Cotações: %.2f, %.2f, %.2f\n", produtos[i].cotacoes[0], produtos[i].cotacoes[1], produtos[i].cotacoes[2]);
+            printf("Média das cotações: %.2f\n", produtos[i].mediaCotacoes);
+        }
+    }
+}
+
+int main() {
+    struct Produto produtos[NUM_PRODUTOS];
+
+    // Preencher os produtos e suas cotações
+    preencherProdutos(produtos);
+
+    // Calcular a média dos menores preços de cada produto
+    float mediaMenoresPrecos = calcularMediaMenoresPrecos(produtos);
+
+    // Exibir os produtos cuja média das cotações seja menor que a média dos menores preços
+    exibirProdutosAbaixoMedia(produtos, mediaMenoresPrecos);
+
+    return 0;
+}
+Questão 10
+
+/*Desenvolver um programa para determinar a 
+próxima jogada em um jogo da velha. 
+Assumir que o tabuleiro é representado por 
+uma matriz de 3 x 3, onde cada posição 
+representa uma das casas do tabuleiro. 
+A matriz pode conter os seguintes valores 
+-1, 0, 1 representando respectivamente 
+uma casa contendo uma peça X=(-1), uma 
+casa vazia do tabuleiro (0), 
+e uma casa contendo uma peça do O=(1). 
+O programa deve apresentar um menu contendo 
+as opções de localizações disponíveis no 
+tabuleiro, permitir que um jogador por vez 
+faça sua escolha (X ou O), e ao final exibir o 
+vencedor ou se houve empate.*/
+
+#include <stdio.h>
+#include <locale.h>
+
+#define LINHA 3
+#define COLUNA 3
+
+// subprogramas
+
+void localzacao_jogada(int jogador, int *x, int *y, int n, int m) // pegar as coordenadas da jogada
+{
+	printf("\nSua vez %i.\n", jogador);
+	do {
+		printf("Escolha uma das casas disponíveis para jogar [x -> linha y -> coluna]: ");
+		scanf("%i%i", x, y);
+		if (*x>n || *x<0 || *y>m || *y<0)
+		{
+			printf("==>>Os valores para as casas devem ser maiores que 0 e menor ou igual a %i.\n", n);
+		}
+	} while (*x>n || *x<0 || *y>m || *y<0);
+}
+
+void exibicao(int V[][COLUNA], int n, int m) // exibir a matriz
+{
+	int i, j;
+	
+	for (j=0; j<m; j++)
+	{
+		printf("\t[%i]", j+1); // cabeçalho das colunas
+	}
+	printf("\n\n");
+	for (i=0; i<n; i++)
+	{
+		printf("[%i]", i+1); // identificação das linhas
+		for (j=0; j<m; j++)
+		{
+			printf("\t%i", V[i][j]);
+		}
+		printf("\n\n");
+	}
+}
+
+void jogadas_possiveis(int x, int y)
+{
+	printf("Casa Disponível: %i, %i\n", x, y);
+}
+
+int casas_vazias(int V[][COLUNA], int n, int m, int id)
+{
+	int i, j, cEspVazios;
+	cEspVazios = 0;
+	
+	for (i=0; i<n; i++)
+	{
+		for (j=0; j<m; j++)
+		{
+			if (V[i][j] == 0)
+			{
+				cEspVazios++;
+				if (id == 0) { jogadas_possiveis(i+1, j+1); }
+			}
+		}
+	}
+	return cEspVazios;
+}
+
+int verificar_linha(int V[][COLUNA], int n, int m)
+{
+	int i, j, cJog1, cJog2;
+	cJog1 = 0;
+	cJog2 = 0;
+	
+	for (i=0; i<n; i++)
+	{
+		for (j=0; j<m; j++)
+		{
+			if (V[i][j] == -1)
+			{
+				cJog1++;
+			}
+			if (V[i][j] == 1)
+			{
+				cJog2++;
+			}
+		}
+		
+		if (cJog1 == 3)
+		{
+			return 1;
+		} else if (cJog2 == 3)
+		{
+			return 2;
+		}
+		cJog1 = 0;
+		cJog2 = 0;
+	}
+	
+	return 0;
+}
+
+int verificar_coluna(int V[][COLUNA], int n, int m)
+{
+	int i, j, lJog1, lJog2;
+	lJog1 = 0;
+	lJog2 = 0;
+	
+	for (j=0; j<m; j++)
+	{
+		for (i=0; i<n; i++)
+		{
+			if (V[i][j] == -1)
+			{
+				lJog1++;
+			}
+			if (V[i][j] == 1)
+			{
+				lJog2++;
+			}
+		}
+		
+		if (lJog1 == 3)
+		{
+			return 1;
+		} else if (lJog2 == 3)
+		{
+			return 2;
+		}
+		lJog1 = 0;
+		lJog2 = 0;
+	}
+	
+	return 0;
+}
+
+int verificar_diagonal_principal(int V[][COLUNA], int n, int m)
+{
+	int i, dJog1, dJog2;
+	dJog1 = 0;
+	dJog2 = 0;
+	
+	for (i=0; i<n; i++)
+	{
+		if (V[i][i] == -1) // V[0][0] ... V[2][2] ; só porque ela é quadrada
+		{
+			dJog1++;
+		}
+		if (V[i][i] == 1)
+		{
+			dJog2++;
+		}
+	
+	}
+	
+	if (dJog1 == 3)
+	{
+		return 1;
+	} else if (dJog2 == 3)
+	{
+		return 2;
+	}
+	
+	return 0;
+}
+
+int verififcar_diagonal_secundaria(int V[][COLUNA], int n, int m)
+{
+	int i, j, dJog1, dJog2;
+	dJog1 = 0;
+	dJog2 = 0;
+	
+	j = m-1;
+	for (i=0; i<n; i++) // V[0][2] ... V[2][0]
+	{
+		if (V[i][j] == -1) 
+		{
+			dJog1++;
+		}
+		if (V[i][j] == 1)
+		{
+			dJog2++;
+		}
+		j--;
+	}
+	
+	if (dJog1 == 3)
+	{
+		return 1;
+	} else if (dJog2 == 3)
+	{
+		return 2;
+	}
+	
+	return 0;
+}
+
+int verificar_vitoria(int V[][COLUNA], int n, int m)
+{
+	int linha, coluna, dPrinc, dSec;
+	linha = verificar_linha(V, n, m);
+	coluna = verificar_coluna(V, n, m);
+	dPrinc = verificar_diagonal_principal(V, n, m);
+	dSec = verififcar_diagonal_secundaria(V, n, m);
+	
+	if (linha != 0)
+	{
+		return linha;
+	} else if (coluna != 0)
+	{
+		return coluna;
+	} else if (dPrinc != 0)
+	{
+		return dPrinc;
+	} else if (dSec != 0)
+	{
+		return dSec;
+	} else if (casas_vazias(V, n, m, 1) == 0)
+	{
+		return -1;
+	}
+	
+	return 0;
+}
+
+void marcar_casa(int V[][COLUNA], int x, int y, int jogador)
+{
+	if (V[x-1][y-1] == 0)
+	{
+		switch(jogador)
+		{
+			case 1:
+				V[x-1][y-1] = -1;
+				break;
+				
+			case 2:
+				V[x-1][y-1] = 1;
+				break;
+		}
+	}
+}
+
+void saida(int vencedor)
+{
+	if (vencedor <= 0) // se "não houver um vencedor"
+	{
+		printf("\nDeu Velha!\n");
+	} else {
+		printf("\nVencedor: Jogador %i\n", vencedor);
+	}
+}
+
+// programa principal
+int main()
+{
+	setlocale(LC_ALL, "");
+	int M[LINHA][COLUNA]={0}; // -1 -> X; 0 -> NULL; 1 -> O
+	int casasVazias, coordX, coordY, jogador, vencedor;
+	jogador = 1;
+	vencedor = 0;
+	
+	do {
+		// exibir a matriz
+		exibicao(M, LINHA, COLUNA);
+		
+		// contar a quantidade de casas vazias
+		casasVazias = casas_vazias(M, LINHA, COLUNA, 0);
+	
+		// jogada pelo jogador da vez
+		localzacao_jogada(jogador, &coordX, &coordY, LINHA, COLUNA);
+		
+		// preencher o local da matriz
+		marcar_casa(M, coordX, coordY, jogador);
+		
+		// verificar se algum dos jogadores preencheu um 3x1
+		vencedor = verificar_vitoria(M, LINHA, COLUNA);
+		
+		// altera o jogador da vez
+		jogador = jogador % 2 + 1; // 1%2==1+1==2 || 2%2==0+1==1
+		
+	} while (casasVazias != 0 && vencedor == 0);
+	
+	// exibe a última configuração da matriz
+	exibicao(M, LINHA, COLUNA);
+	
+	// exibe o vencedor da partida
+	saida(vencedor);
+	
+	return 0;
+}
