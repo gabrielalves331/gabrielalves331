@@ -1,0 +1,394 @@
+1 Questão 
+
+/*Escreva um programa em linguagem C que mostre o total
+ em bytes utilizado por cada tipo primitivo.*/
+ 
+ #include <stdio.h>
+ #include <locale.h>
+ 
+ int main()
+ 
+ {
+
+setlocale(LC_ALL,"");
+
+ 	int i, f, c, si,usi, ui, li, d;
+ 	
+ 	i=sizeof (int);
+ 	
+ 	f=sizeof (float);
+ 	
+ 	c=sizeof (char);
+	
+	d=sizeof (double);
+ 	
+ 	printf("\n+==================+====+\n");
+ 	
+ 	printf("\n|Bytes no int:     |%3i |\n", i);
+ 	
+ 	printf("\n|Bytes no float:   |%3i |\n", f);
+ 	
+ 	printf("\n|Bytes no char:    |%3i |\n", c);
+ 	
+ 	printf("\n|Bytes no double:  |%3i |\n", d);
+ 	
+ 	
+ 	printf("\n+==================+====+\n");
+ 	
+ 	return 0;
+ 	}
+
+2 Questão 
+
+/*Escreva um programa em linguagem C que crie um struct e uma union com 3 campos
+de tipos de tamanho diferente (use os mesmos campos na struct a na union). Usando
+typedef crie um tipo para a struct e um tipo para a union. Em seguida, usando sizeof(),
+compare o tamanho de cada novo tipo e comente o resultado*/
+ 
+ #include <stdio.h>
+ #include <locale.h>
+ 
+ struct ficha{
+ 	
+ 	int id;
+ 	
+ 	char nome[30];
+ 	
+ 	float sal;
+	  };
+	  
+	  typedef struct ficha T_Ficha;
+	  
+	  
+	  union prisioneiro_do_IFBA
+	  
+	  {
+	  	int num_matri;
+	  	
+	  	char nome[30];
+	  	
+	  	float Crv;
+	  	
+	  };
+ 
+ typedef union prisioneiro_do_IFBA T_aluno;
+ 
+ int main()
+ 
+ {
+ 	
+ 	setlocale(LC_ALL,"");
+ 	
+ 	int S, U;
+ 	
+ 	S=sizeof (T_Ficha);
+ 	
+ 	U=sizeof (T_aluno);
+ 	
+ 	printf("\n+==================+====+\n");
+ 	printf("\nTamanho do Struct : |%3i|\n", S);
+ 	
+ 	printf("\nTamanho do Union  : |%3i|\n", U);
+ 	printf("\n+==================+====+\n");
+ 	return 0;
+ 	}
+
+3 Questão 
+/*Crie um programa em linguagem C que crie um vetor de inteiros com 11 posições que
+receba os dados pelo teclado. Após isso. você deve exibir o valor central (mediana), o
+valor inicial e o valor final.*/
+ 
+
+#include <locale.h>
+#include <stdio.h>
+
+#define tam 11
+
+int main()
+
+{
+	setlocale(LC_ALL,"");
+	int v[tam];
+	int i;
+	
+	//preenchimento do vetor v
+	
+	for(i=0;i<tam; i++)
+{
+	printf("Informe o número [%i] do vetor [V]: ", i+1);
+	scanf("%i", &v[i]);
+	
+}
+	//exibição do vetor
+	
+	printf("\t\nO Primeiro valor inserido no vetor [V] é:.%3i\n", v[0]);
+	
+	printf("\t\nA Mediana do vetor [V] é:.................%3i\n", v[tam/2]);
+	
+	printf("\t\nO Último valor inserido no vetor [V] é:...%3i\n", v[tam-1]);
+	
+}
+
+4 Questão 
+/*Crie um programa em linguagem C que crie um vetor de char com 100 posições que
+representam um loteria de números. O usuário deve indicar 50 números pelo teclado que
+devem ser inseridos no vetor da forma que você achar mais eficiente. Após isso, o
+programa deve exibir uma aposta espelho. A aposta espelho são os 50 números não
+marcados.*/
+
+#include <stdio.h>
+#include <locale.h>
+#include <stdbool.h>
+
+#define TAM 10 // Tamanho do vetor
+
+int main() {
+    setlocale(LC_ALL, ""); // Para suporte a caracteres especiais
+    char numeros[TAM] = {0}; // Vetor para armazenar os números da loteria
+    int num_usuario;
+
+    // Solicitar ao usuário para inserir 50 números
+    printf("Insira 50 números (de 0 a 99) para a loteria:\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Número [%d]: ", i + 1);
+        scanf("%d", &num_usuario);
+
+        // Verifica se o número está dentro do intervalo permitido e se ainda não foi inserido
+        if (num_usuario >= 0 && num_usuario < TAM && numeros[num_usuario] == 0) {
+            numeros[num_usuario] = 1; // Marca o número como inserido
+        } else {
+            printf("Número inválido ou já inserido, tente novamente.\n");
+            i--; // Decrementa i para repetir a entrada
+        }
+    }
+
+    // Exibir aposta espelho (números não marcados)
+    printf("\nAposta espelho (números não marcados):\n");
+    for (int i = 0; i < TAM; i++) {
+        if (numeros[i] == 0) {
+            printf("|%3i | ", i); // Exibe o número não marcado
+        }
+    }
+    
+    printf("\n"); // Nova linha após a lista de números
+    return 0;
+}
+
+
+
+
+5 Questão 
+/*Escreva um programa em linguagem C que aloque duas variáveis: Uma inteira e outra
+um ponteiro para um inteiro. Em seguida, leia do teclado um valor para a variável
+inteira. Faça o ponteiro apontar para a variável inteira imprima na tela as seguintes
+informações: O valor contido no endereço apontado pelo ponteiro, o endereço apontado
+pelo ponteiro e o endereço do ponteiro.*/
+
+#include <stdio.h>
+#include <locale.h>
+
+int main() {
+    setlocale(LC_ALL, ""); 
+    
+    int n1, *n2;
+    
+    printf("Insira o um número inteiro: \n");
+    
+    scanf("%i", &n1);
+	
+	n2=&n1;
+	
+	printf("O valor contido no endereço apontado pelo ponteiro é: %i\n", *n2);
+    printf("O endereço apontado pelo ponteiro é: 0x%016llX\n", (unsigned long long)n2);
+    printf("O endereço do ponteiro é: 0x%016llX\n", (unsigned long long)&n2);
+	
+    return 0;
+}
+
+
+
+
+6 Questão
+
+/*Escreva um programa em linguagem C que aloque uma variável 
+do tipo int e uma do tipo float. Aloque também, um ponteiro 
+para void. Insira valores nas variáveis, int e float e depois 
+solicite ao usuário qual o tipo ele deseja trabalhar: int ou 
+float. Baseado na resposta, faça o ponteiro apontar para a 
+variável correta.*/
+
+#include <stdio.h>
+#include <locale.h>
+
+int main() {
+    setlocale(LC_ALL, ""); 
+
+    int n;
+
+    float f;
+    
+    void *v;
+
+    char c;
+
+    n=4;
+
+    f=4.5;
+
+    v=0;
+    
+	printf("Insira [1] para inteiro e [0] para float: \n");
+    scanf(" %c", &c);  // Lê a escolha do usuário como caractere
+    
+    // Validação da entrada
+    while (c != '1' && c != '0') {
+        printf("Inválido! Insira [1] para inteiro e [0] para float: \n");
+        scanf(" %c", &c);
+    }
+
+    if(c=='1')
+    {
+
+        printf("Você escolheu trabalhar com valores inteiros!!\n");
+        v=&n;
+        
+        printf("%d", *(int*)v);
+
+    }else if(c=='0')
+    {
+
+        printf("Você escolheu trabalhar com valores reais!!!\n");
+        v=&f;
+        
+        printf("%.2f", *(float*)v);
+    }
+    
+    return 0;
+}
+7 Questão
+
+/*Escreva um programa em linguagem C que calcule a 
+soma e o produto de duas matrizes multidimensionais. 
+As matrizes podem ser preenchidas diretamente no 
+código (hard code) ou solicitado ao usuário. 
+O resultado do produto e da soma devem ser exibidos 
+na tela de forma que possam ser identificadas cada 
+linha e cada coluna. Para resolver esta questão use 
+vetores multidimensionais.*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+#define LIN 3   
+#define COL 3  
+
+// Função para entrada de dados em uma matriz
+void entradaMatriz(int matriz[LIN][COL], const char *nome) {
+    printf("\nPreenchendo a matriz %s:\n", nome);
+    for (int i = 0; i < LIN; i++) {
+        for (int j = 0; j < COL; j++) {
+            printf("Insira o elemento [%d][%d]: ", i + 1, j + 1);
+            scanf("%d", &matriz[i][j]);
+        }
+    }
+}
+
+// Função para exibir uma matriz
+void exibirMatriz(int matriz[LIN][COL], const char *nome) {
+    printf("\nMatriz %s:\n", nome);
+    for (int i = 0; i < LIN; i++) {
+        for (int j = 0; j < COL; j++) {
+            printf("%4d ", matriz[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    setlocale(LC_ALL, "Portuguese");
+
+    int matrizA[LIN][COL], matrizB[LIN][COL];
+    int soma[LIN][COL], produto[LIN][COL];
+
+    // Entrada de dados para as matrizes
+    entradaMatriz(matrizA, "A");
+    entradaMatriz(matrizB, "B");
+
+    // Calculando a soma e o produto das matrizes
+    for (int i = 0; i < LIN; i++) {
+        for (int j = 0; j < COL; j++) {
+            soma[i][j] = matrizA[i][j] + matrizB[i][j];
+            produto[i][j] = 0;
+            for (int k = 0; k < COL; k++) {
+                produto[i][j] += matrizA[i][k] * matrizB[k][j];
+            }
+        }
+    }
+
+    // Exibindo as matrizes e os resultados
+    exibirMatriz(matrizA, "A");
+    exibirMatriz(matrizB, "B");
+    exibirMatriz(soma, "Soma");
+    exibirMatriz(produto, "Produto");
+
+    printf("\nCálculos concluídos com sucesso!\n");
+    
+    printf("+----------------------------+\n");
+
+    return 0;
+}
+
+8 Questão 
+
+/*Escreva uma biblioteca em C que chame uma função definida por usuário para exibir o resultado da divisão de dois números do tipo float. A biblioteca dever ter duas funções: void dividir(float dividendo, float divisor) e void carregafuncao(void *func). No programa principal, você deverá escrever o código da função “func”, que será do tipo void e receberá um parâmetro do do tipo “void (*funcao)(float resultado) que irá representar o resultado. A função dividir() fará a divisão entre os dois números passados nos parâmetros e chamará a função definida no ponteiro passando resultado.*/
+
+#include "divisor.h"
+#include <stdio.h>
+
+void minhafuncao(float r){
+	printf("O resultado encontrado foi : %.3f\n", r);
+}
+
+int main(){
+
+	float n1, n2;
+	
+	n1=4.3;
+	n2=2.0;
+	
+	carregafuncao(minhafuncao);
+	
+	dividir(n1,n2);
+	
+	return 0;
+}
+
+divisor.h
+#ifndef DIVISOR_H
+#define DIVISOR_H
+
+void carregafuncao(void (*funcaoresposta)(float resultado));
+void dividir(float dividendo, float divisor);
+
+#endif
+
+divisor.c
+
+
+#include "divisor.h"
+#include <stdio.h>
+
+void (*funcao)(float resultado);
+
+void carregafuncao(void (*funcaoresposta)(float resultado)){
+	funcao = funcaoresposta;
+}
+
+void dividir(float dividendo, float divisor){
+	if(funcao!=NULL){
+		funcao(dividendo/divisor);
+	}else{
+		printf("%f\n", dividendo/divisor);
+	}
+}
