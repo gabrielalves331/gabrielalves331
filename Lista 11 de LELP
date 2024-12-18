@@ -1,0 +1,882 @@
+
+Questão 1 
+
+/*Desenvolva um programa que preencha um vetor A com trinta números inteiros. Em
+seguida deve-se copiar os elementos do vetor A para um outro vetor B de tal forma que
+seus elementos fiquem invertidos, ou seja, o 1o elemento de A passa a ser o último de B, o
+2o elemento de A passa a ser o penúltimo e A e assim por diante. Ao final deve-se exibir os
+dois vetores, um par de elementos por linha:
+A[1] = ??, B[1] = ??
+A[2] = ??, B[2] = ??*/
+
+#include <stdio.h>
+#include <locale.h>
+#define TAM 30
+
+void entrada (int vetorOri[], int TAM){
+	int i;
+    for ( i = 0; i < TAM; i++) {
+        printf("Digite o numero %i ", i + 1);
+        scanf("%i", &vetorOri[i]);
+    }
+}
+void copiarVetor(int TAM, int vetorOri[], int vetorDest[]) {
+	int i;
+    for (i = 0; i < TAM; i++) {
+        vetorDest[i] = vetorOri[i];
+    }
+}
+int inverterVetor(int vetorOri[], int vetorDest[], int TAM) {
+	int i;
+    for (i = 0; i < TAM; i++) {
+        vetorDest[i] = vetorOri[TAM - 1 - i];
+     }
+     return vetorDest[i];
+}
+
+void Vsaida(int vetorOri[], int vetorDest[], int TAM){
+	int i;
+	for (i = 0; i < TAM; i++) {
+        printf("A[%i] : %i\t\tB[%i] : %i\n", i + 1, vetorOri[i], i + 1, vetorDest[i]);
+ 
+     }
+
+}
+int main() {
+setlocale(LC_ALL,””);
+int A[TAM];
+int B[TAM];
+
+entrada(A, TAM);
+
+copiarVetor(TAM, A, B);
+
+inverterVetor(A, B, TAM);
+
+Vsaida(A, B, TAM);
+    
+}
+
+
+Questão 2
+
+/*Desenvolver um programa que receba o mês (número obrigatoriamente entre 1 e 12) e
+preencha um vetor com temperaturas (graus Celsius) para cada dia daquele mês. A partir
+do vetor de temperaturas, o programa deve exibir a média das temperaturas do mês, dia
+mais quente e quantos dias tiveram temperatura acima da média. Considerar que a
+quantidade de temperaturas pode variar de acordo com mês de 28 a 31 valores. */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+void entrada(int *m, int *d) {
+    do {
+        printf("Informe o numero do mes (entre 1 e 12): ");
+        scanf("%i", m);
+
+        if (*m < 1 || *m > 12) {
+            printf("Mes invalido, informe um numero de 1 a 12.\n");
+        }
+    } while (*m < 1 || *m > 12);
+
+    if (*m == 2) {
+        printf("Digite o numero de dias (28 ou 29) para o mes de fevereiro: ");
+        scanf("%i", d);
+    } else if (*m == 4 || *m == 6 || *m == 9 || *m == 11) {
+        *d = 30;
+    } else {
+        *d = 31;
+    }
+}
+
+void informarTemperatura(float temperaturas[], int qtDias) {
+    int i;
+    for (i = 0; i < qtDias; i++) {
+        printf("Dia %i: ", i + 1);
+        scanf("%f", &temperaturas[i]);
+    }
+}
+
+float media(float temperaturas[], int qtDias) {
+    int i;
+    float soma = 0;
+    for (i = 0; i < qtDias; i++) {
+        soma += temperaturas[i];
+    }
+    return soma / qtDias;
+}
+
+int findDiaMaisQuente(float temperaturas[], int qtDias) {
+    int i, diaMaisQuente = 1;
+    float temperaturaMaxima = temperaturas[0];
+    for (i = 1; i < qtDias; i++) {
+        if (temperaturas[i] > temperaturaMaxima) {
+            temperaturaMaxima = temperaturas[i];
+            diaMaisQuente = i + 1;
+        }
+    }
+    return diaMaisQuente;
+}
+
+int diasAcimaMedia(float temperaturas[], int qtDias, float media) {
+    int i, cont = 0;
+    for (i = 0; i < qtDias; i++) {
+        if (temperaturas[i] > media) {
+            cont++;
+        }
+    }
+    return cont;
+}
+
+void exibir(float calcMedia, int diaMaisQuente, int qtDiasAcimaMedia) {
+    printf("Media das temperaturas: %.2f\n", calcMedia);
+    printf("Dia mais quente: %i\n", diaMaisQuente);
+    printf("Quantos dias tiveram temperatura acima da media: %i\n", qtDiasAcimaMedia);
+}
+
+int main() {
+    int mes, dias;
+    entrada(&mes, &dias);
+setlocale(LC_ALL,””);
+
+    float temperaturas[dias];
+    informarTemperatura(temperaturas, dias);
+
+    float calcMedia = media(temperaturas, dias);
+    int diaMaisQuente = findDiaMaisQuente(temperaturas, dias);
+    int qtDiasAcimaMedia = diasAcimaMedia(temperaturas, dias, calcMedia);
+
+    exibir(calcMedia, diaMaisQuente, qtDiasAcimaMedia);
+}
+
+
+Questão 3
+
+/* Desenvolver um programa que preencha dois 
+vetores A e B cada uma com 25 elementos. O
+vetor A deve aceitar somente números positivos, 
+enquanto que o vetor B deve aceitar somente 
+números primos positivos. O programa deve 
+exibir a quantidade de números de
+Fibonacci presentes nos dois vetores.*/
+
+#include <stdio.h>
+#include <locale.h>
+#define tam 5 
+
+//subprogramas
+
+// Função para verificar se um número é primo
+int eh_primo(int n) {
+    if (n < 2) return 0;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return 0;
+    }
+    return 1;
+}
+
+// Entrada do vetor A (somente números positivos)
+void entrada_a(int va[], int n) 
+
+{
+    setlocale(LC_ALL, "");
+    
+    for (int c = 0; c < n; c++) 
+	
+	{
+        do {
+            printf("Digite o número positivo do vetor [A] [%i]:\n\t", c + 1);
+            scanf("%i", &va[c]);
+        } while (va[c] <= 0); // Aceita somente números positivos
+    }
+}
+
+// Entrada do vetor B (somente números primos positivos)
+void entrada_b(int vb[], int n) 
+
+{
+    setlocale(LC_ALL, "");
+    
+    for (int c = 0; c < n; c++) {
+        do {
+            printf("Digite o número primo do vetor [B] [%i]:\n\t", c + 1);
+            scanf("%i", &vb[c]);
+        } while (!eh_primo(vb[c])); // Aceita somente números primos
+    }
+}
+
+// Função para verificar se um número pertence à sequência de Fibonacci
+
+int eh_fibonacci(int n) 
+
+{
+    if (n == 0 || n == 1) return 1;
+    int a = 0, b = 1, fib = 0;
+    while (fib < n) {
+        fib = a + b;
+        a = b;
+        b = fib;
+    }
+    
+    return (fib == n);
+}
+
+// Contagem dos números de Fibonacci no vetor A
+
+int contagem_fibo_a(int va[], int n) 
+
+{
+    int qntd_fibo_a = 0;
+    
+    for (int i = 0; i < n; i++) {
+        if (eh_fibonacci(va[i])) {
+            qntd_fibo_a++;
+        }
+    }
+    
+    return qntd_fibo_a;
+}
+
+// Contagem dos números de Fibonacci no vetor B
+
+int contagem_fibo_b(int vb[], int n)
+
+ {
+    int qntd_fibo_b = 0;
+    
+    for (int i = 0; i < n; i++) {
+    	
+        if (eh_fibonacci(vb[i])) {
+            qntd_fibo_b++;
+        }
+    }
+    
+    return qntd_fibo_b;
+}
+
+// Função para exibir a quantidade de números de Fibonacci
+void saida(int n) 
+
+{
+    printf("A quantidade de números dos dois vetores pertencentes à sequência de Fibonacci é: [%i]\n", n);
+}
+
+// Função principal
+
+int main() 
+
+{
+    int num_a[tam], num_b[tam], qntd_fibo;
+
+    setlocale(LC_ALL,"");
+
+    entrada_a(num_a, tam);
+    entrada_b(num_b, tam);
+
+    int fibo_a = contagem_fibo_a(num_a, tam);
+    int fibo_b = contagem_fibo_b(num_b, tam);
+
+    qntd_fibo = fibo_a + fibo_b;
+
+    saida(qntd_fibo);
+
+    return 0;
+}
+
+
+Questão 4
+
+/*Desenvolver um programa que preencha três vetores com números. 
+O primeiro vetor (A) possui cinco elementos e só deve aceitar valores 
+positivos, o segundo (B) possui o triplo de elementos do primeiro, enquanto 
+que o terceiro vetor (C) possui quantidade de elementos correspondente à soma 
+de elementos dos dois primeiros. Após preenchimento, deve-se copiar os elementos
+dos três vetores para um quarto vetor (D) de tal forma que os elementos em D estejam 
+dispostos na forma D = [C B A]. Ao final, o programa deve exibir os elementos de D e a 
+posição de seu menor elemento, indicando qual é seu vetor de origem, ou seja, se o menor
+elemento de D pertence à A, B ou C.*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <locale.h>
+
+#define TAMANHOA 5
+#define TAMANHOB (TAMANHOA * 3)
+#define TAMANHOC (TAMANHOA + TAMANHOB)
+#define TAMANHOD (TAMANHOA + TAMANHOB + TAMANHOC)
+
+void preencher(int vtA[], int vtB[], int vtC []){
+	int i;
+    for( i = 0; i < TAMANHOA; i++){
+        do{
+            printf("Informe um valor positivo para A (%i): ", i + 1);
+            scanf("%i", &vtA[i]);
+        }while (vtA[i]<0);  }
+        
+    for(i = 0; i < TAMANHOB; i++){
+        printf("Informe um valor positivo paraB (%i): ", i + 1);
+        scanf("%i", &vtB[i]);}
+        
+    for(i = 0; i < TAMANHOC; i++){
+        printf("Informe um valor positivo para C (%i): ", i + 1);
+        scanf("%i", &vtC[i]);             
+    }
+
+}
+
+void copiarParaD(int vtA[], int vtB[], int vtC [], int vtD[]){
+    int i, iD = 0;
+    for (i = 0; i<TAMANHOC; i++){
+        vtD[iD++] = vtC[i];
+    }
+    for(i = 0; i<TAMANHOB; i++){
+        vtD[iD++] = vtB[i];
+    }
+    for(i = 0; i<TAMANHOA; i++){
+        vtD[iD++] = vtA[i];
+    }
+}
+void exibirD(int vtD[]){
+	int i;
+    printf("Vetor D: ");
+    for (i = 0; i < TAMANHOD; i++) {
+        printf("%d", vtD[i]);
+        if (i < TAMANHOD - 1) {
+            printf(", ");
+        }
+    }
+}
+void menorElemento (int vtD[]){
+    int i, menorElemento = INT_MAX;
+    char vetorDeOrigem;
+    for (i = 0; i < TAMANHOD; i++) {
+        if (vtD[i] < menorElemento) {
+            menorElemento = vtD[i];
+
+            if (i < TAMANHOC) {
+                vetorDeOrigem = 'C';
+            } else if (i < TAMANHOC + TAMANHOB) {
+                vetorDeOrigem = 'B';
+            } else {
+                vetorDeOrigem = 'A';
+            }
+        }
+    }
+    printf("\nMenor elemento em D: %i\n", menorElemento);
+    printf("Vetor de origem: %c\n", vetorDeOrigem);
+    
+}
+int main()
+{
+ setlocale(LC_ALL,"");
+
+    int A[TAMANHOA];
+    int B[TAMANHOB];
+    int C[TAMANHOC];
+    int D[TAMANHOD];
+    
+    preencher(A,B,C);    
+     
+    copiarParaD(A,B,C,D);    
+
+    exibirD(D);
+
+    menorElemento(D);
+
+    return 0;
+}
+
+
+Questão 5
+
+/*Desenvolva um programa que receba as notas de dez estudantes em um vetor.
+Em seguida, receba também dois valores (i,j) quaisquer correspondentes às duas
+posições do vetor (esses valores não podem extrapolar o tamanho do vetor e devem
+ser diferentes entre si). O programa deverá exibir o vetor, trocar as notas entre
+as posições i e j, e exibir novamente o vetor após a troca.*/
+
+
+#include <stdio.h>
+#include <locale.h>
+#define TAMANHO 10
+
+// Função para entrada das notas
+void entrada(float v[], int n)
+{
+    setlocale(LC_ALL, "");
+    int c;
+
+    for (c = 0; c < n; c++)
+    {
+        printf("Digite a nota [%i]: ", c + 1);
+        scanf("%f", &v[c]);
+    }
+}
+
+// Função para exibir o vetor
+void exibe(float v[], int n)
+{
+    int c;
+
+    for (c = 0; c < n; c++)
+    {
+        printf("Nota [%i] = %.2f\n", c + 1, v[c]);
+    }
+}
+
+// Função para realizar a troca das notas nas posições i e j
+void troca(float *x, float *y)
+{
+    float temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+// Programa principal
+int main()
+{
+    setlocale(LC_ALL, "");
+    float notas[TAMANHO];
+    int i, j;
+
+    // Entrada de notas
+    entrada(notas, TAMANHO);
+
+    // Exibe o vetor antes da troca
+    printf("\nVetor antes da troca:\n");
+    exibe(notas, TAMANHO);
+
+    // Entrada dos valores de i e j
+    do
+    {
+        printf("\nDigite a posição i (entre 1 e %d): ", TAMANHO);
+        scanf("%d", &i);
+        printf("Digite a posição j (entre 1 e %d): ", TAMANHO);
+        scanf("%d", &j);
+
+        if (i < 1 || i > TAMANHO || j < 1 || j > TAMANHO || i == j)
+        {
+            printf("\nPosições inválidas! As posições devem estar entre 1 e %d e serem diferentes.\n", TAMANHO);
+        }
+    } while (i < 1 || i > TAMANHO || j < 1 || j > TAMANHO || i == j);
+
+    // Realiza a troca
+    troca(&notas[i - 1], &notas[j - 1]);
+
+    // Exibe o vetor após a troca
+    printf("\nVetor após a troca:\n");
+    exibe(notas, TAMANHO);
+
+    return 0;
+}
+
+
+
+
+Questão 6
+/*Desenvolver um programa que preencha um vetor com quarenta números e exiba o
+elemento que mais se repete no vetor. Opcionalmente pode-se preencher o vetor com
+valores aleatórios (função de sorteio de números).
+Como preencher o vetor com valores aleatórios? - Funções rand() e srand()*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+
+#define TAM 40
+
+void preencherVetor(int n[]) {
+    int i;
+    for (i = 0; i < TAM; i++) {
+        printf("Digite o numero [%i]: ", i + 1);
+        scanf("%i", &n[i]);
+    }
+}
+
+int repetido(int n[], int tam) {
+    int i, j, maxRepeticoes = 0, maisRepetido = n[0], cont;
+
+    for (i = 0; i < tam; i++) {
+        cont = 0;
+        for (j = 0; j < tam; j++) {
+            if (n[i] == n[j]) {
+                cont++;
+            }
+        }
+        if (cont > maxRepeticoes) {
+            maxRepeticoes = cont;
+            maisRepetido = n[i];
+        }
+    }
+
+    return maisRepetido;
+}
+
+void exibir(int elementoRep) {
+    printf("O numero que mais se repetiu foi = %i\n", elementoRep);
+}
+
+int main() 
+{
+setlocale(LC_ALL,””);
+    int num[TAM];
+    preencherVetor(num);
+
+    int elementoRep = repetido(num, TAM);
+    exibir(elementoRep);
+}
+
+
+Questão 7
+
+/*Desenvolva um programa preencha um vetor de números e exiba o desvio-padrão d
+calculado através da expressão: onde V é o vetor e m é sua média. Considere n = 10, isto é, o vetor possui dez elementos.*/
+
+#include <stdio.h>
+#include <locale.h>
+#include <math.h>
+#define TAM 10
+
+// Função para entrada dos números
+void entrada(float num[], int n) {
+    int c;
+    for (c = 0; c < n; c++) {
+        printf("Digite o número [%i]: ", c + 1);
+        scanf("%f", &num[c]);
+    }
+}
+
+// Função para calcular a média dos números
+float calcular_media(float v[], int n) 
+
+{
+    float soma = 0;
+    int c;
+    
+    for (c = 0; c < n; c++) {
+        soma += v[c];
+    }
+    return soma / n;
+}
+
+// Função para calcular o desvio-padrão
+float desvio_padrao(float v[], int n) 
+{
+    float media = calcular_media(v, n);
+    float soma = 0;
+    int c;
+
+    for ( c = 0; c < n; c++) {
+        soma += pow(v[c] - media, 2);  // (V[i] - m)²
+    }
+
+    return sqrt(soma / (n - 1));  // Fórmula para desvio-padrão com n-1
+}
+
+// Função para exibir o desvio-padrão
+void exibe(float desvio) {
+    printf("O desvio-padrão d é: %.2f\n", desvio);
+}
+
+// Programa principal
+int main() {
+    setlocale(LC_ALL, "");  // Configuração para uso de caracteres locais
+    float numeros[TAM];
+    
+    // Entrada de dados
+    entrada(numeros, TAM);
+    
+    // Cálculo do desvio-padrão
+    float d = desvio_padrao(numeros, TAM);
+
+    // Exibição do resultado
+    exibe(d);
+    
+    return 0;
+}
+
+
+
+Questão 8
+
+Um programa livre de entrada é aquele capaz de receber qualquer 
+tipo de dados, seja ele números, letras, sinais ortográficos, entre 
+outros. Desenvolva um programa livre de entrada que receba qualquer 
+sequência com no máximo 256 caracteres ASCII e informe se tratar: 
+a) NOME; b) NÚMERO INTEIRO; c) NÚMERO REAL (vírgula é o separador da parte fracionária); d) SEQUÊNCIA ALFANUMÉRICA. */
+
+#define TAM 256
+
+void entradaD(char entrada[]) {
+    printf("Digite uma sequência de no máximo %d caracteres ASCII: ", TAM);
+    fgets(entrada, TAM, stdin);
+    entrada[strcspn(entrada, "\n")] = 0;
+}
+
+char* verificar_tipo_dado(char entrada[]) {
+    int i;
+    int pontoEncontrado = 0;
+    int temLetra = 0;
+    int temNumero = 0;
+
+    for (i = 0; i < strlen(entrada); i++) {
+        if (!isalpha(entrada[i]) && entrada[i] != ' ') {
+            break;
+        }
+    }
+    if (i == strlen(entrada)) {
+        return "Nome";
+    }
+
+    for (i = 0; i < strlen(entrada); i++) {
+        if (!isdigit(entrada[i])) {
+            break;
+        }
+    }
+    if (i == strlen(entrada)) {
+        return "Número inteiro";
+    }
+
+    for (i = 0; i < strlen(entrada); i++) {
+        if (entrada[i] == ',') {  
+            if (!pontoEncontrado) {
+                pontoEncontrado = 1;
+            } else {
+                break;
+            }
+        } else if (!isdigit(entrada[i])) {
+            break;
+        }
+    }
+    if (i == strlen(entrada) && pontoEncontrado) {
+        return "Número real";
+    }
+
+    for (i = 0; i < strlen(entrada); i++) {
+        if (isalpha(entrada[i])) {
+            temLetra = 1;
+        }
+        if (isdigit(entrada[i])) {
+            temNumero = 1;
+        }
+    }
+    if (temLetra && temNumero) {
+        return "Sequência alfanumérica";
+    }
+
+    return "Tipo de dado não identificado";
+}
+
+void exibir(char *tipo) {
+    printf("O tipo de dado é: %s\n", tipo);
+}
+
+int main() {
+    char entrada[TAM];
+    entradaD(entrada);
+    char *tipo = verificar_tipo_dado(entrada);
+    exibir(tipo);
+}
+
+
+Questão 9
+
+/* Palíndromos são palavras ou frases que podem ser lidas da esquerda para a direita ou da
+direita para a esquerda, guardando a mesma grafia. Por exemplo, ANA é uma palavra
+palíndromo. As frases: "AME O POEMA"; "ROMA ME TEM AMOR”; e "A DOSE DE SODA"
+também são palíndromos. Desenvolva um programa que permita ao usuário digitar uma
+frase e informe se a frase ou palavra é palíndromo ou não.*/
+
+#include <stdio.h>
+#include <string.h>
+#include <locale.h>
+#include <ctype.h>
+
+//subprogramas
+
+//entrada
+
+void entrada(char v[])
+
+{
+	setlocale(LC_ALL,"");
+
+		printf("Digite a frase : ");
+		scanf("%1000[^\n]s", v);
+}
+
+
+//inverção da frase
+
+int Palindromo(char v[])
+
+{
+	char temp[1001];
+	int c, j=0, cont, n;
+	
+	//copiando somente letras da frase
+	
+	for(c=0; c < strlen(v); c++)
+	{
+		if(isalpha(v[c]))
+		{
+			temp[j]= toupper(v[c]);
+			j++;
+		}
+	}
+	
+	temp[j] = '\0';
+	
+	n= strlen(temp);
+	
+	j= n-1;
+	cont= 0;
+	
+	for (c=0; c<n; c++)
+	{
+		
+		if(temp[c]==temp[j])
+		
+		{
+			cont++;
+			j--;
+		}
+		
+	}
+	
+	return cont==n;
+	
+}
+
+// exibição da resposta se é palíndroma ou não
+
+void saida(char frase[], int ver)
+
+{
+	setlocale(LC_ALL,"");
+	
+	if(ver)
+	
+	{
+		
+		printf("\nA frase [ %s ] é palíndroma!!", frase);
+		
+	}else
+	
+	{
+		printf("\nA frase [ %s ] NÃO é palíndroma!!", frase);
+	}
+}
+
+int main()
+
+{
+	setlocale(LC_ALL,"");
+	char frase[1001];
+	int ver;
+	
+	//preenchimento da palavra
+	
+	entrada(frase);
+	
+	//inverção da palavra
+	
+	ver = Palindromo(frase);
+	
+	//exibição das respostas
+	
+	saida(frase, ver);
+	
+	return 0;
+}
+
+
+
+Questão 10
+
+/*Desenvolver um programa que receba um 
+número inteiro obrigatoriamente positivo 
+e exiba seu correspondente hexadecimal.*/
+
+#include <stdio.h>
+#include <locale.h>
+#include <string.h>  // Para a função de inversão
+#define tam 20
+
+// Função de entrada
+void entrada(int *num) 
+{
+    setlocale(LC_ALL, "");
+    printf("Insira um número positivo: ");
+    scanf("%i", num);
+
+    // Garantir que o número seja positivo
+    while (*num <= 0) {
+        printf("Número inválido! Digite um número positivo: ");
+        scanf("%i", num);
+    }
+}
+
+// Função para converter número para hexadecimal
+void converter_para_hexadecimal(int n, char hex[]) 
+{
+    int i = 0, resto, j;
+    
+    
+    // Enquanto o número for maior que 0
+    while (n != 0) 
+{
+        resto = n % 16;  // Obter o valor do resto ao dividir por 16
+        
+        // Verificar se o resto é maior que 9 (convertendo para letras A-F)
+        if (resto < 10) 
+{
+            hex[i] = resto + '0';  // Converte para caractere (0-9)
+        } else
+{
+            hex[i] = resto - 10 + 'A';  // Converte para caractere (A-F)
+        }
+
+        n = n / 16;  // Dividir o número por 16 para continuar a conversão
+        i++;
+    }
+    
+    hex[i] = '\0';  // Adiciona o terminador de string
+
+
+    // Inverter o vetor para que fique na ordem correta
+   
+    for (j = 0; j < i / 2; j++) 
+	
+	{
+        char temp = hex[j];
+        hex[j] = hex[i - j - 1];
+        hex[i - j - 1] = temp;
+    }
+}
+
+// Função para exibir o número convertido
+void exibe(int n, char hex[]) 
+{
+    printf("\nO número [%i] em hexadecimal é [%s]\n", n, hex);
+}
+
+// Programa principal
+int main () 
+{
+    int numero;
+    char hex[tam];  // Vetor para armazenar o número hexadecimal convertido
+
+    // Entrada de dados
+    entrada(&numero);
+    
+    // Convertendo para hexadecimal
+    converter_para_hexadecimal(numero, hex);
+    
+    // Exibindo o resultado
+    exibe(numero, hex);
+    return 0;
+}
