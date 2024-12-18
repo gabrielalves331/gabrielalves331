@@ -1,0 +1,155 @@
+/*Desenvolver um programa para cadastrar potenciais 
+candidatos à vagas de empregos da empresa VOCÊ SA. 
+Os dados do candidato são: código identificador(ID), 
+nome, sexo(masculino, feminino), data de nascimento e 
+pretensão salarial. O cadastro deve ter capacidade para
+armazenar dados de trezentos candidatos e o programa 
+precisa cumprir os seguintes requisitos: 
+Permitir o usuário informar a quantidade de candidatos 
+a serem cadastrados assegurando que esta quantidade não 
+ultrapasse a capacidade de armazenamento.
+Permitir cadastrar um novo candidato assegurando que 
+não deve haver ID de candidato repetido no cadastro. 
+Além disso, a data nascimento deve ser validada para 
+assegurar somente dia (1..31,considerando situações 
+de ano bissexto), mês(1..12) e ano válidos(1900..ano atual).
+Permitir que sejam listados os dados de todos os candidatos 
+do cadastro com pretensão salarial abaixo de “x”, onde “x” 
+é um valor informado pelo  fornecidos pelo usuário.*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <string.h>
+
+// Estrutura da data
+struct data {
+    int dia;
+    int mes;
+    int ano;
+};
+
+typedef struct data T_data;
+
+// Estrutura da pessoa
+struct pessoa {
+    char nome[60];
+    T_data dtnasc;
+    char gen[3];
+    int pin;
+    float sal;
+};
+
+typedef struct pessoa T_pessoa;
+
+// Subprogramas
+
+// Entrada da quantidade de candidatos
+void entrada_1(int *n) {
+    printf("Insira a quantidade de candidatos a serem analisados:\n");
+    scanf("%i", n);
+
+    while (!(*n >= 1 && *n <= 300)) {
+        printf("Quantidade inválida, digite de [1] até [300]:\n");
+        scanf("%i", n);
+    }
+}
+
+// Entrada da pretensão salarial
+void entrada_2(float *n) {
+    printf("Insira a pretensão salarial:\n");
+    scanf("%f", n);
+}
+
+// Validação de dia, mês e ano considerando ano bissexto
+int dia_valido(int dia, int mes, int ano) {
+    int dias_no_mes[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    if ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0)) {
+        dias_no_mes[1] = 29;  // Fevereiro tem 29 dias em ano bissexto
+    }
+    return dia >= 1 && dia <= dias_no_mes[mes - 1];
+}
+
+int ano_valido(int ano) {
+    return ano <= 2025 && ano >= 1900;
+}
+
+// Função para verificar se o PIN é único
+int pin_unico(int pin, T_pessoa v[], int n) {
+    for (int i = 0; i < n; i++) {
+        if (v[i].pin == pin) return 0;
+    }
+    return 1;
+}
+
+// Entrada dos dados do candidato
+void entrada(T_pessoa v[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("\nDados da pessoa [%i]\n", i + 1);
+        
+        printf("Informe nome: ");
+        scanf(" %[^\n]s", v[i].nome);
+
+        printf("Insira seu gênero ([M] para masculino, [F] para feminino e [NA] caso não queira responder): ");
+        scanf(" %[^\n]s", v[i].gen);
+
+        printf("Informe data de nascimento (dia, mês, ano):\n");
+        do {
+            printf("Dia: ");
+            scanf("%i", &v[i].dtnasc.dia);
+            printf("Mês: ");
+            scanf("%i", &v[i].dtnasc.mes);
+            printf("Ano: ");
+            scanf("%i", &v[i].dtnasc.ano);
+            if (!dia_valido(v[i].dtnasc.dia, v[i].dtnasc.mes, v[i].dtnasc.ano) || !ano_valido(v[i].dtnasc.ano)) {
+                printf("Data inválida! Tente novamente.\n");
+            }
+        } while (!dia_valido(v[i].dtnasc.dia, v[i].dtnasc.mes, v[i].dtnasc.ano) || !ano_valido(v[i].dtnasc.ano));
+
+        printf("Insira sua pretensão salarial:\n");
+        scanf("%f", &v[i].sal);
+
+        do {
+            printf("Insira seu código (PIN):\n");
+            scanf("%i", &v[i].pin);
+            if (!pin_unico(v[i].pin, v, i)) {
+                printf("PIN já existente! Insira um PIN diferente.\n");
+            }
+        } while (!pin_unico(v[i].pin, v, i));
+
+        getchar();  // Limpar buffer
+    }
+}
+
+// Exibir candidatos com salário abaixo de "x"
+void exibir_por_salario(T_pessoa v[], int n, float max_salario) {
+    printf("\nCandidatos com salário abaixo de R$%.2f:\n", max_salario);
+    for (int i = 0; i < n; i++) {
+        if (v[i].sal < max_salario) {
+            printf("+----------------------------+\n");
+            printf("| NOME: %s                   |\n", v[i].nome);
+            printf("| DTNSC: %02d/%02d/%04d      |\n", v[i].dtnasc.dia, v[i].dtnasc.mes, v[i].dtnasc.ano);
+            printf("| GÊNERO: %s                 |\n", v[i].gen);
+            printf("| SALÁRIO: R$%.2f            |\n", v[i].sal);
+            printf("| CÓDIGO PIN: %d             |\n", v[i].pin);
+        }
+    }
+}
+
+// Programa principal
+int main() {
+    setlocale(LC_ALL, "");
+    int qntd_fun;
+    float sal;
+    T_pessoa pessoas[300];
+    
+    entrada_1(&qntd_fun);
+    entrada_2(&sal);
+    entrada(pessoas, qntd_fun);
+    
+    exibir_por_salario(pessoas, qntd_fun, sal);
+    
+    printf("+----------------------------+\n");
+    return 0;
+}
