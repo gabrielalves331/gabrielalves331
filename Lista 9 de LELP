@@ -1,0 +1,804 @@
+Questão 1
+
+/*Desenvolva um programa que receba um conjunto de números inteiros obrigatoriamente
+não negativos e para cada número digitado informe a quantidade de divisores do número.
+A digitação de números deve ser encerrada mediante questionamento ao usuário.*/
+
+#include <stdio.h>
+#include <locale.h>
+
+//subprogramas
+
+int funcao_div(int n){
+	
+	int C, qntd_div = 0;
+  
+   for (C = 1; C <= n; C++) {
+   	
+            if (n % C == 0) {
+                qntd_div++;
+            }
+}
+	return qntd_div;
+}
+
+
+//programa principal
+
+int main(){
+	
+	setlocale(LC_ALL,"");
+	
+	int num, C=1, div, r=0;
+	
+	do{
+		
+	printf("Insira o número [%i]:\n\t", C);
+	scanf("%i", &num);	
+	
+		while (num <= 0) {
+       	 printf("Número inválido! Digite um número positivo: ");
+        	scanf("%i", &num);
+        }
+
+	C++;
+	
+	div=funcao_div(num);
+	
+	printf("\nA quantidade de divisores do número %i é %i.\n", num, div);
+	
+	printf("Deseja continuar? [1] para sim e [0] para não.\n\t");
+	scanf("%i", &r);
+		
+	}while(!(r==0));
+	
+	return 0;
+}
+
+
+
+Questão 2.
+
+/* Desenvolva um programa que receba oitenta números inteiros quaisquer. Para cada
+número positivo digitado informe se o número é primo ou não.
+*/
+
+#include <stdio.h>
+#include <locale.h>
+
+//subprogramas
+
+int eh_primo(int n){
+	
+	int C, qntd_div = 0;
+  
+   for (C = 1; C <= n; C++) {
+   	
+            if (n % C == 0) {
+                qntd_div++;
+            }
+}
+if(qntd_div==2){
+	
+	return 1;
+	
+}else{
+	
+	return 0;
+}
+	
+}
+
+
+//programa principal
+
+int main(){
+	
+	setlocale(LC_ALL,"");
+	
+	 int num, C = 1;
+
+    while (C <= 80) {
+        printf("Insira o número [%i]:\n\t", C);
+        scanf("%i", &num);
+
+        // Verifica se o número é positivo
+
+        if (num > 0) {
+            if (eh_primo(num)) {
+                printf("O número %i é primo.\n", num);
+            } else {
+                printf("O número %i não é primo.\n", num);
+            }
+            C++; // Incrementa apenas se o número for positivo
+        } else {
+            printf("Número inválido! Digite um número positivo.\n");
+        }
+    }
+	
+	return 0;
+}
+
+
+
+Questão 3.
+
+ /* Desenvolva um programa que receba um conjunto de números inteiros obrigatoriamente
+não negativos e para cada número digitado informe se o número pertence ou não a
+sequência de Fibonacci. A digitação de números deve ser encerrada mediante
+questionamento ao usuário.
+
+*/
+
+#include <stdio.h>
+#include <locale.h>
+
+//subprogramas
+
+int eh_fibo(int n){
+	
+	int a = 0, b = 1, v_f = 0; 
+
+if (n == 0) { 
+
+return 1; // O número 0 pertence à sequência de Fibonacci
+
+ } 
+			
+// Reiniciar Verific_Fibo
+
+            while (v_f < n) {
+                v_f = a + b;
+                a = b;
+                b = v_f;
+            }
+            
+if(n==v_f){
+          
+     return 1;
+          
+}else{
+      	
+	return 0;
+}
+}
+}
+
+
+//programa principal
+
+int main(){
+	
+	setlocale(LC_ALL,"");
+	
+	int num, C=1, r=0;
+	
+	do{
+		
+	printf("Insira o número [%i]:\n\t", C);
+	scanf("%i", &num);	
+	
+		while (num <= 0) {
+       	 printf("Número inválido! Digite um número positivo: ");
+        	scanf("%i", &num);
+        }
+
+	C++;
+	
+	if(eh_fibo(num)){
+		
+		printf("\nO número %i pertence a sequência de Fibonacci!!\n", num);
+		
+	}else{
+		
+		printf("\nO número %i Não pertence a sequência de Fibonacci!!\n", num);
+		
+	}
+	
+	
+	
+	printf("Deseja continuar? [1] para sim e [0] para não.\n\t");
+	scanf("%i", &r);
+		
+	}while(!(r==0));
+	
+	return 0;
+}
+
+
+
+Questão 4.
+
+ /*Desenvolver um programa que receba dois ou três valores, os quais devem ser
+obrigatoriamente diferentes entre si. A partir dos dois ou três valores deve-se exibir o
+maior dentre eles.
+*/
+
+#include <stdio.h>
+#include <locale.h>
+
+//subprogramas
+
+int o_maior(int n1, int n2, int n3){
+	
+	int n_maior;
+	
+	 if(n1 != n2 && n1 != n3 && n2 != n3){
+		
+		if(n1 > n2 && n1 > n3){
+			
+			n_maior=n1;
+			
+		}else if(n2 > n1 && n2 > n3){
+		
+			n_maior=n2;
+			
+		}else if(n3 > n1 && n3 > n2){
+		
+		n_maior=n3;
+		
+		}
+
+	}
+
+            
+return n_maior;
+}
+
+
+//programa principal
+
+int main(){
+	
+	setlocale(LC_ALL,"");
+	
+	int num1, num2, num3, num_maior, C=1, r=0;
+	
+	
+	printf("Insira o número [%i]:\n\t", C);
+	scanf("%i", &num1);	
+	C++;
+
+	printf("Insira o número [%i]:\n\t", C);
+	scanf("%i", &num2);	
+	C++;
+	
+	printf("Insira o número [%i](opcional, insira 0 se não quiser):\n\t ", C);
+    scanf("%i", &num3);
+    
+    // Validação dos números
+    
+    while (num1 == num2 || num1 == num3 || (num2 == num3 && num3 != 0)) {
+    printf("Os números devem ser diferentes entre si. Insira os números novamente.\n");
+    
+C=1;
+
+    printf("Insira o número [%i]:\n\t", C);
+	scanf("%i", &num1);	
+	C++;
+
+	printf("Insira o número [%i]:\n\t", C);
+	scanf("%i", &num2);	
+	C++;
+	
+	printf("Insira o número [%i](opcional, insira 0 se não quiser):\n\t ", C);
+    scanf("%i", &num3);
+    }
+
+    // Se o terceiro número for 0, comparamos apenas dois números
+    if (num3 == 0) {
+        if (num1 > num2) {
+            num_maior = num1;
+        } else {
+            num_maior = num2;
+        }
+    } else {
+        // Se o terceiro número não for 0, usamos a função para encontrar o maior
+        num_maior = o_maior(num1, num2, num3);
+    }
+    
+    printf("\nO maior número é: %i\n", num_maior);
+    
+    return 0;
+    
+}
+
+
+
+
+
+Questão 5. 
+
+ /*Desenvolver um programa que receba dois valores inteiros x e y, 
+obrigatoriamente positivos, e mostre o resultado x sem utilizar 
+função interna da linguagem, isto é, a x^y, potência deve ser 
+calculada através de multiplicações.
+
+*/
+
+#include <stdio.h>
+#include <locale.h>
+
+//subprogramas
+
+int potencia(int x, int y){
+	
+	int C, res=1;	
+	
+	for(C=0; C<y;C++){
+		res*=x;
+	}
+            
+return res;
+}
+
+
+//programa principal
+
+int main(){
+	
+	setlocale(LC_ALL,"");
+	
+	int x, y, res;
+	
+	
+	printf("Insira o valor de [x]:\n\t");
+	scanf("%i", &x);	
+
+	printf("Insira o valor de [y]:\n\t");
+	scanf("%i", &y);	
+	
+	while(!(x>0 || y>0)){
+		
+	printf("Valor(es) inválido(s)!! Insira novamente os valores");
+		
+	printf("Insira o valor de [x]:\n\t");
+	scanf("%i", &x);	
+
+	printf("Insira o valor de [y]:\n\t");
+	scanf("%i", &y);	
+		
+	}
+	
+	res = potencia(x, y);
+    
+    printf("\nO resultado de %i elevado a %i é: %i\n", x, y, res);
+    
+    return 0;
+    
+}
+
+
+
+Questão 6. 
+
+/*Desenvolver um programa que receba os limites do intervalo fechado [a, b], onde a deve
+ser obrigatoriamente menor que b, e mostre quantos números primos existem neste
+intervalo.*/
+
+#include <stdio.h>
+#include <locale.h>
+
+// Função para verificar se um número é primo
+int ehprimo(int num) {
+    if (num < 2) {
+        return 0; // Números menores que 2 não são primos
+    }
+    
+    int div;
+    for (div = 2; div * div <= num; div++) { // Verifica divisores até a raiz quadrada
+        if (num % div == 0) {
+            return 0; // Se houver divisor, não é primo
+        }
+    }
+    return 1; // Se não houver divisores, é primo
+}
+
+// Função para contar os primos no intervalo [x, y]
+int contar_primos(int x, int y) {
+    int count = 0, i;
+    for (i = x; i <= y; i++) {
+        if (ehprimo(i)) {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Programa principal
+int main() {
+    setlocale(LC_ALL,"");
+    
+    int a, b, qtd_primos;
+    
+    // Entrada dos limites do intervalo
+    printf("Insira o valor de [a]: ");
+    scanf("%i", &a);
+    
+    printf("Insira o valor de [b]: ");
+    scanf("%i", &b);
+    
+    // Verifica se a é menor que b
+    if (a < b) {
+        qtd_primos = contar_primos(a, b); // Conta os números primos no intervalo
+        printf("\nQuantidade de números primos no intervalo [%i, %i]: %i\n", a, b, qtd_primos);
+    } else {
+        printf("Valores inválidos! O valor de 'a' deve ser menor que 'b'.\n");
+    }
+    
+    return 0;
+}
+
+Questão 7.
+
+/* Desenvolver um programa que receba dois números x, y, obrigatoriamente positivos. 
+Caso x seja maior ou igual y calcule e mostre a divisão inteira x÷y sem utilização 
+de operadores de divisão. Caso x seja menor que y calcule e mostre a multiplicação 
+x * y sem a utilização do operador de multiplicação.
+*/
+
+#include <stdio.h>
+#include <locale.h>
+
+int mult(int x, int y) {
+    
+    int mult=0, C;
+    for (C = 0; C < y; C++) { 
+        
+        mult+=x;
+    }
+    return mult; 
+}
+
+int divis(int x, int y) {
+    int quociente = 0;
+    while (x >= y) {
+        x -= y;
+        quociente++;
+    }
+    return quociente;
+}
+
+// Programa principal
+int main() 
+{
+
+    setlocale(LC_ALL,"");
+    
+    int x, y, res;
+    
+    // Entrada de dados
+    
+    printf("Insira o valor de [x]: ");
+    scanf("%i", &x);
+    
+    printf("Insira o valor de [y]: ");
+    scanf("%i", &y);
+    
+    while (!(x >= 0 || y >= 0 )) {
+       	 printf("Número(s) inválido(s)! Digite um número(s) positivo(s).\n");
+    printf("Insira o valor de [x]: ");
+    scanf("%i", &x);
+    
+    printf("Insira o valor de [y]: ");
+    scanf("%i", &y);
+        }
+
+
+    if (x <= y) {
+    	
+        res = mult(x, y); 
+        printf("A multiplicação %i vezes %i é %i.", x, y, res);
+    } else if(y<x){
+    	
+    	res= divis(x,y);
+        printf("A divisão %i por %i é %i.", x, y, res);
+    }
+    
+    return 0;
+}
+
+
+
+Questão 8.
+/* Construir um programa que receba um conjunto de números inteiros e informe o 
+sucessor primo do maior número de Fibonacci. Deve-se assegurar que números não sejam
+negativos. Lembrar que a série de Fibonacci é formada pela 
+sequência: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ... Assim, se o maior número de Fibonacci
+em conjunto de números é 21, seu sucessor primo é 23. A digitação dos dados é 
+encerrada mediante questionamento ao usuário.
+*/
+
+#include <stdio.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <string.h>
+
+//Subprograma
+
+int maior_fibo(int n){
+
+int maior_fib, eh_fibonacci, a, b, num_atual;
+
+		a = 0;
+		b = 1;
+		eh_fibonacci = 0;
+		
+		while(b <= n){
+			
+		if(n == b || n == a){
+		eh_fibonacci = 1;
+			}
+			num_atual = a + b;
+			a = b;
+			b = num_atual;
+		}
+		if(eh_fibonacci && n > maior_fib){
+			maior_fib = n;
+		}
+		
+		return maior_fib;
+}
+
+int primo_maior(int maior_fib){
+	
+	int c_div, primo_maior=0, c2, c3=0;
+	
+c2 = maior_fib+1;
+		do{
+			c_div=0;
+			for(c3=1; c3<=c2; c3++){
+				if(c2%c3==0){
+					c_div++;
+				}
+			}
+			
+			if(c_div == 2){
+				primo_maior = c2;
+			} else {
+				c2++;
+			}
+		}while(c_div != 2);
+		
+		return primo_maior;
+}
+
+//programa principal
+
+int main() {
+
+    int num, C=1,  r=0, fibo, maior_primo;
+    
+    setlocale(LC_ALL,"");
+    
+//Feito por Gabriel de Santana Alves para a matéria de LELP
+
+do{
+	
+ printf("Insira o valor [%i] a ser analisado:\n", C);
+ scanf("%i",&num);
+  C++;
+  
+printf("Deseja continuar? [1] para sim e [0] para não.\n\t");
+scanf("%i", &r);
+		
+	}while(!(r==0));
+	
+	fibo=maior_fibo(num);
+	
+	maior_primo= primo_maior(fibo);
+	
+if(maior_primo > 0){
+			printf("Maior número de Fibonacci: %i\n", fibo);
+			printf("Sucessor primo do maior número de Fibonacci: %i\n", maior_primo);
+		}else{
+			printf("Os números informados não se encontram na série de Fibonacci");
+		}
+	return 0;
+}
+
+
+
+Questão 9.
+/* Desenvolva um programa que receba dois inteiros (obrigatoriamente positivos) 
+e mostre o MDC (máximo divisor comum) e o MMC (mínimo múltiplo comum) desses números.
+*/
+
+#include <stdio.h>
+#include <locale.h>
+#include <stdlib.h>
+
+//subprogramas
+
+int calculo_mdc(int x, int y){
+	
+	int aux;
+	
+while (y != 0) {
+        aux = y;
+        y = x % y;
+        x = aux;
+    }
+    return x;
+}
+
+int calculo_mmc(int x, int y, int mdc) {
+	
+    return (x * y) / mdc;
+}
+
+
+//programa principal
+
+int main(){
+	
+	int x, y, mmc, mdc;
+	
+	printf("Insira o valor x:\n\t");
+	scanf("%i", &x);
+	printf("Insira o valor y:\n\t");
+	scanf("%i", &y);
+	
+	while (x <= 0 || y<= 0 ) {
+       	 printf("Número inválido! Digite números positivos:\n\t");
+        	scanf("%i", &x);
+        	scanf("%i", &y);
+        }
+
+	mdc=calculo_mdc(x, y);
+	mmc=calculo_mmc(x, y, mdc);
+		
+	printf("\n\tO Maior Divisor Comum de %i e %i é: %i\n\t", x, y, mdc);
+	printf("O Maior Multiplicador Comum de %i e %i é: %i", x, y, mmc);
+	
+	
+	return 0;
+}
+Explicação:
+MDC: O cálculo é feito com o algoritmo de Euclides. Esse algoritmo funciona dividindo o maior número pelo menor, e substituindo o maior número pelo menor e o menor pelo resto da divisão. Esse processo é repetido até que o resto seja zero; o divisor nesse momento será o MDC.
+MMC: O MMC é calculado usando a fórmula:
+MMC(a,b)=a×bMDC(a,b)\text{MMC}(a, b) = \frac{a \times b}{\text{MDC}(a, b)}MMC(a,b)=MDC(a,b)a×b​
+
+Questão 10.
+
+/* Desenvolva um programa que receba o dia e mês de nascimento de conjunto de pessoas e
+para cada pessoa informe seu signo baseado na tabela a seguir:
+
+Áries 20/03 a 20/04 Libra 23/09 a 22/10
+Touro 21/04 a 20/05 Escorpião 23/10 a 21/11
+Gêmeos 21/05 a 20/06 Sagitário 22/11 a 21/12
+Câncer 21/06 a 21/07 Capricórnio 22/12 a 21/01
+Leão 22/07 a 22/08 Aquário 22/01 a 18/02
+Virgem 23/08 a 22/09 Peixes 19/02 a 19/03
+A digitação dos dados é encerrada mediante questionamento ao usuário.
+*/
+
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <locale.h>
+
+//subprogramas
+
+char* signo(int mes, int dia) {
+    static char signo_nome[20]; 
+	
+	switch(mes){
+			 case 1:
+                if(dia >= 22) {
+                    strcpy(signo_nome, "Aquário");
+                } else {
+                    strcpy(signo_nome, "Capricórnio");
+                }
+                break;
+            case 2:
+                if(dia >= 19) {
+                    strcpy(signo_nome, "Peixes");
+                } else {
+                    strcpy(signo_nome, "Aquário");
+                }
+                break;
+            case 3:
+                if(dia >= 20) {
+                    strcpy(signo_nome, "Áries");
+                } else {
+                    strcpy(signo_nome, "Peixes");
+                }
+                break;
+            case 4:
+                if(dia >= 21) {
+                    strcpy(signo_nome, "Touro");
+                } else {
+                    strcpy(signo_nome, "Áries");
+                }
+                break;    
+            case 5:
+                if(dia >= 21) {
+                    strcpy(signo_nome, "Gêmeos");
+                } else {
+                    strcpy(signo_nome, "Touro");
+                }
+                break;
+            case 6:
+                if(dia >= 21) {
+                    strcpy(signo_nome, "Câncer");
+                } else {
+                    strcpy(signo_nome, "Gêmeos");
+                }
+                break;
+            case 7:
+                if(dia >= 22) {
+                    strcpy(signo_nome, "Leão");
+                } else {
+                    strcpy(signo_nome, "Câncer");
+                }
+                break;
+            case 8:
+                if(dia >= 23) {
+                    strcpy(signo_nome, "Virgem");
+                } else {
+                    strcpy(signo_nome, "Leão");
+                }
+                break;
+            case 9:            
+                if(dia >= 23) {
+                    strcpy(signo_nome, "Libra");
+                } else {
+                    strcpy(signo_nome, "Virgem");
+                }
+                break;
+            case 10:    
+                if(dia >= 23) {
+                    strcpy(signo_nome, "Escorpião");
+                } else {
+                    strcpy(signo_nome, "Libra");
+                }
+                break;
+            case 11:
+                if(dia >= 22) {
+                    strcpy(signo_nome, "Sagitário");
+                } else {
+                    strcpy(signo_nome, "Escorpião");
+                }
+                break;
+            case 12:
+                if(dia >= 22) {
+                    strcpy(signo_nome, "Capricórnio");
+                } else {
+                    strcpy(signo_nome, "Sagitário");
+                }
+                break;
+	}
+    
+    return signo_nome;
+}
+
+
+//programa principal
+
+int main(){	
+
+	int mes, dia;
+	
+	char signo_nome[40];
+	
+	setlocale(LC_ALL,"");
+	
+	//Feito por Gabriel ALves para a matéria de LELP
+	
+	printf("Digite o dia do seu nascimento: ");
+    scanf("%i", &dia);
+
+    printf("Digite o mês do seu nascimento (em número): ");
+    scanf("%i", &mes);
+	
+if (mes <  1 || mes > 12 || dia <1 || dia >31) {
+        printf("Mês  ou dia inválido.\n");	
+}
+
+strcpy(signo_nome,signo(mes, dia));
+
+printf("A pessoa nascida em %i do mes %i é de %s!!", dia, mes, signo_nome);
+
+	return 0;
+}
