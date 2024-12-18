@@ -1,0 +1,496 @@
+Questão 1
+/*Desenvolva um programa que receba um número inteiro qualquer, calcule e exiba a
+tabuada de 0 a 10 desse número. A tabuada deve ser exibida na forma: 0 x n = 0, 1
+x n = 1n, 2 x n = 2n, ..., 10 x n = 10n.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <string.h>
+
+int main(){
+
+int num, c;
+
+setlocale(LC_ALL,"");
+
+printf("Escreva o número");
+scanf("%i",&num);
+
+	for (c=0; c <= 10; c++) {
+		printf("%i x %i = %i\n", c, num, num*c);
+	}
+
+return 0;
+}
+
+Questão 2
+/*Desenvolva um programa que receba o valor inicial (a), a razão (r) e (n) que
+representa a posição do enésimo de uma progressão aritmética. A partir desses
+dados, o programa deve exibir os termos da P.A do primeiro até o enésimo termo.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <string.h>
+
+int main(){
+	
+	int a, n, r,c;
+	
+	//Feito por Gabriel de Santana Alves para a matéria de LELP
+	
+	setlocale(LC_ALL, "");
+	
+	printf("Informe o primeiro termo:\n ");
+	scanf("%i", &a);
+	printf("Informe a razão:\n ");
+	scanf("%i", &r);
+	printf("Informe a posição do termo:\n ");
+	scanf("%i", &n);
+	
+	for(c=1;c<=n;c++){
+		
+	printf("O %i° termo é %i!!\n", c, a );
+	
+ 	a =a + r;
+}
+return 0;
+}
+
+
+
+
+
+
+Questão 3
+
+/*Desenvolva um programa que receba sessenta números inteiros quaisquer (positivo
+ou negativo). Ao final, o programa deve exibir os dois maiores números.*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <string.h>
+
+int main(){
+	
+	int c, n, n_maior1, n_maior2;
+	
+	setlocale(LC_ALL, "");
+
+//Feito por Gabriel Alves para a matéria de LELP
+	
+	for(c=0;c<5;c++){
+	printf("Informe o numero:\n ");
+	scanf("%i", &n);
+
+if(c==0){
+	
+	n_maior1=n;
+}
+	
+	else if(n>n_maior1){
+			
+		n_maior2=n_maior1;
+		n_maior1= n;
+		
+		}else if(n>n_maior2){
+			
+		n_maior2=n;
+	
+		}
+	}
+	printf("\n\tOs maiores números são : %i e %i !!",n_maior1,n_maior2);
+	
+
+return 0;
+}
+
+
+Questão 4
+
+/*Desenvolva um programa que receba trinta números inteiros quaisquer. Ao final, o
+programa deve mostrar a quantidade de números de Fibonacci. Os números de
+Fibonacci são aqueles que pertencem à sequência: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55...*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+
+int main(){
+	
+	int Numero, C=1, A, B, Indice_Fibo, Verific_Fibo, qntd_fibo=0;
+	
+	setlocale(LC_ALL, "");
+
+//Feito por Gabriel Alves para a matéria de LELP
+	
+	for(C=1;C<=4;C++){
+	
+  printf("Insira o valor [%i] a ser analisado:\n", C);
+  scanf("%i",&Numero);
+  
+  if(Numero> 0){
+          	A=0;
+          	B=1;
+
+    for(Indice_Fibo=1; Indice_Fibo<=Numero; Indice_Fibo++){
+         
+         Verific_Fibo = A + B;
+          A = B;
+          B = Verific_Fibo;
+
+          if(Numero==Verific_Fibo){
+          qntd_fibo++;
+      }
+     }
+}
+}
+  
+printf("Há %i números da sequência de Fibonacci!!",  qntd_fibo);
+
+return 0;
+}
+
+
+
+Questão 5
+/*Desenvolver um programa que receba o total de aulas ministradas em uma
+disciplina. Em seguida, o programa deve receber nome e quantidade de faltas de
+quarenta estudantes. Ao final, o programa deve exibir a média de faltas na
+disciplina, nome e percentual de faltas do estudante mais faltoso.
+*/
+
+#include <string.h>
+#include <stdio.h>
+#include <locale.h>
+
+int main() {
+    int  C;
+    float   falta, total_aula, porc, soma=0.0, maior_falta=0.0;
+    char nome[60], nomefalta[60];
+    
+    setlocale(LC_ALL,"");
+
+//Feito por Gabriel Alves para a matéria de LELP
+
+    printf("Insira o número total de aulas ministradas. ");
+	scanf("%f",&total_aula);
+		
+for(C=0;C<3;C++){
+ 
+    printf("Insira o nome do aluno [%i].",C+1);
+		scanf("%59s",nome);
+    printf("Insira o número total de faltas do aluno [ %i].", C+1);	
+		scanf("%f",&falta);
+
+if(C==1){
+		maior_falta=falta;
+		strcpy(nomefalta,nome);
+		porc=(falta/total_aula)*100; 
+		                                                          
+		
+		}else if(maior_falta<falta){
+		maior_falta=falta;
+		strcpy(nomefalta,nome);
+		porc=(falta/total_aula)*100;
+		 
+	}
+	
+	soma += falta;
+}
+
+
+printf("A Média de faltas é de %.2f!!!\n", soma/C);
+
+printf("O  estudante mais faltoso é %s, com %.2f por cento de faltas!!!",nomefalta,porc);
+
+return 0;
+}
+
+
+
+Questão 6
+/*Ana tem 1,50 metro e cresce 2 centímetros por ano, enquanto Maria tem 1,10
+metro e cresce 3 centímetros por ano. Desenvolva um programa que calcule e
+exiba quantos anos serão necessários para que Maria seja maior que Ana.
+*/
+
+#include <string.h>
+#include <locale.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+
+//Feito por Gabriel Alves para a matéria de LELP
+	
+	setlocale(LC_ALL,"");
+
+	
+	int anos;
+	float alt_1, alt_2, cresce_1, cresce_2, cont, aumen;
+	char nome1[50], nome2[50];
+	
+	printf("Insira o nome da primeira pessoa:\n\t");
+	scanf("%49s", nome1);	
+	printf("Insira a altura de %s:\n\t", nome1);
+	scanf("%f", &alt_1);
+	printf("Insira o valor crescido por ano de %s em [m]:\n\t", nome1);
+	scanf("%f", &cresce_1);
+	
+	printf("Insira o nome da segunda pessoa:\n\t");
+	scanf("%49s", nome2);
+	printf("Insira a altura de %s:\n\t", nome2);
+	scanf("%f", &alt_2);
+	printf("Insira o valor crescido por ano de %s em [m]:\n\t", nome2);
+	scanf("%f", &cresce_2);
+	
+	for(cont=alt_2;cont<alt_1; cont= cont+cresce_2){
+		
+		alt_1= alt_1+cresce_1;
+		anos++;
+		
+	}
+	
+	printf("Vai demorar %i anos para a %s ultrapassar %s em altura!", anos, nome2, nome1);
+	return 0;
+}
+
+
+Questão 7
+/*Desenvolva um programa que receba a idade, altura e peso de um conjunto de
+pessoas e mostre:
+
+a. A quantidade de pessoas com idade maior que 30.
+b. A média das alturas das pessoas com menos de 60 e mais de 40 anos.
+c. A porcentagem de pessoas com menos de 50 quilos.
+
+A entrada de dados se encerra com uma idade negativa. O programa deve
+assegurar que a altura esteja entre 50 centímetros e 3 metros e que o peso
+somente aceite valores entre 20 e 200 quilos.
+*/
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <locale.h>
+
+int main (){
+	
+	setlocale(LC_ALL,"");
+	
+	//Feito por Gabriel Alves para a matéria de LELP
+	
+	int idade, qntd_pe_50=0,qntd_id_30=0,qntd_id_40_60=0, C=0;
+	float soma=0.0, media, altura, peso, porc;
+	
+	do
+	{
+		printf("Informe a idade da pessoa [%i]:\n\t", C+1);
+		scanf("%i", &idade);	
+do
+ {
+printf("Informe a altura da pessoa [%i]:\n\t", C+1);
+		scanf("%f", &altura);
+ } while (altura < 0.50 || altura > 3.00);
+
+ do 
+{ 
+printf("Informe 0 peso da pessoa [%i] entre [20] e [200] quilos:\n\t", C+1);
+		scanf("%f", &peso);
+ } while (peso < 20.0 || peso > 200.0);
+		
+		
+		if(idade>30){
+			qntd_id_30++;
+		}
+		if(idade>40 && idade<60){
+			soma=soma+altura;
+			qntd_id_40_60++;
+		}
+		if(peso<50){
+			qntd_pe_50++;
+		}
+		C++;
+	}while(!(idade<0 && altura<0.50 && altura>3.0 && peso<20 && peso>200 ));
+	
+	media=soma/qntd_id_40_60;
+	
+	porc= qntd_pe_50*100/C;
+	
+	printf("A quantidade de pessoas com mais de trinta anos é de: %i\n", qntd_id_30);
+	printf("E a média das alturas das pessoas com menos de 60 e mais de 40 anos é de: %.2f\n", media);
+	printf("E a porcentagem de pessoas com menos de 50 quilos é de: %.2f %", porc);
+	
+	return 0;
+}
+
+
+
+Questão 8
+/*/*Desenvolva um programa que receba um conjunto de números e conte quantos
+deles estão nos seguintes intervalos: [0-25], [26-50], [51-75] e [76-100]. A entrada
+de dados se encerra quando for lido um número negativo.
+*/
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <locale.h>
+
+int main (){
+	
+	setlocale(LC_ALL,"");
+	
+	//Feito por Gabriel Alves para a matéria de LELP
+	
+	int num, qntd_0_25=0,qntd_26_50=0,qntd_51_75=0,qntd_76_100=0, C=0;
+	
+	do
+	{
+		printf("Informe o número [%i]:\n\t", C+1);
+		scanf("%i", &num);
+		
+		if(num>=0 && num<=25){
+			qntd_0_25++;
+		}
+		if(num>=26 && num<=50){
+			qntd_26_50++;
+		}
+		if(num>=51 && num<=75){
+			qntd_51_75++;
+		}
+		if(num>=76 && num<=100){
+			qntd_76_100++;
+		}
+		
+		C++;
+	}while(!(num<0));
+	
+	printf("A quantidade de números no intervalo [0-25] é de: %i\n", qntd_0_25);
+	printf("A quantidade de números no intervalo [26-50] é de: %i\n",qntd_26_50);
+	printf("A quantidade de números no intervalo [51-75] é de: %i\n", qntd_51_75);
+	printf("A quantidade de números no intervalo [76-100] é de: %i\n",qntd_76_100);
+	
+	return 0;
+}
+
+
+
+Questão 9
+/*Desenvolva um programa/algoritmo para ler nome e idade (obrigatoriamente
+positiva) de um conjunto de pessoas. O programa deve exibir o nome e idade da
+pessoa mais jovem entre aquelas cuja idade é um número primo. A leitura dos
+dados se encerra mediante questionamento ao usuário. Uma mensagem deve ser
+exibida caso não seja informado idade número primo.
+*/
+#include <stdio.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(){
+	
+	setlocale(LC_ALL,"");
+	
+    char resp[50]= " ", nome[50], nomejov[50];
+    int C = 0, idade, idadejov, div, Cont;
+	
+//Feito por Gabriel Alves para a matéria de LELP
+
+    do {
+    	printf("Insira o nome da pessoa (%i): ", C + 1);
+        scanf("%49s",nome);
+        printf("Insira a idade da pessoa (%i): ", C + 1);
+        scanf("%i",&idade);
+
+        while (idade <= 0) {
+            printf("Idade inválida! Digite uma idade positiva: ");
+            scanf("%i", &idade);
+        }
+        
+		C++;
+        printf("Deseja continuar (s/n)? ");
+        scanf("%s", resp);	
+        
+for (Cont = 1; Cont <= idade; Cont++) {
+        if (idade % Cont == 0) {
+            div++;
+        }
+    }
+
+    if(div==2){	
+      if (idade < idadejov) {
+                strcpy(nomejov, nome);
+                idadejov = idade;
+            }
+    }	
+    div=0;
+   } while (strcmp(resp, "s") == 0 || strcmp(resp, "S") == 0);
+    
+    if (idadejov >0) {  
+        printf("%s é a pessoa mais jovem com %i anos de idade, cuja idade é um número primo!\n", nomejov, idadejov);
+    } else {
+        printf("Nenhuma idade prima foi digitada.\n");
+    }
+return 0;
+}
+
+Questão 10
+/*Desenvolva um programa que receba um número inteiro qualquer (positivo ou
+negativo) e informe se o número é palíndromo ou não. Número palíndromo é
+aquele que uma vez invertido a ordem de seus algarismos ele permanece igual ao
+número original. Exemplos de números palíndromos: 1221,141,20002.
+*/
+#include <stdio.h> 
+#include <locale.h> 
+#include <stdlib.h>
+
+ int main() {
+
+setlocale(LC_ALL, ""); 
+int N1, mod_n1, NReverso = 0, temp; 
+
+// Feito por Gabriel de Santana Alves para a matéria de LELP 
+
+printf("Informe o número a ser analisado.\n\t"); 
+scanf("%i", &N1); 
+
+// Tornando o número positivo para o cálculo (caso seja negativo) 
+
+mod_n1 = abs(N1); 
+temp = mod_n1; 
+
+// Calculando o número invertido 
+
+while (temp > 0) { 
+NReverso = NReverso * 10 + temp % 10; 
+temp /= 10; 
+} 
+// Verificando se o número original (absoluto) é igual ao invertido
+
+ if (mod_n1 == NReverso) { 
+printf("O número %i é um palíndromo.\n", N1); 
+} else { 
+printf("O número %i não é um palíndromo.\n", N1);
+ } 
+
+return 0;
+ }
+
+Inicialização:
+temp: Uma variável temporária que, inicialmente, recebe o valor do número que se deseja inverter.
+NReverso: Uma variável que será usada para armazenar o número invertido. É inicializada com 0.
+Laço while:
+O laço continua enquanto temp for maior que 0. Isso significa que ainda há dígitos a serem processados.
+Dentro do laço:
+NReverso = NReverso * 10 + temp % 10;:
+temp % 10: Obtém o último dígito de temp. Por exemplo, se temp for 123, o resultado será 3.
+NReverso * 10: Desloca todos os dígitos já processados uma posição para a esquerda, abrindo espaço para o novo dígito.
++ temp % 10: Adiciona o último dígito de temp ao final de NReverso, construindo o número invertido gradualmente.
+temp /= 10;: Remove o último dígito de temp. Por exemplo, se temp era 123, agora se torna 12.
+Fim do laço:
+Quando temp se torna 0, significa que todos os dígitos foram processados e o número NReverso contém o número original invertido.
