@@ -1,0 +1,668 @@
+3 a Lista de Exercícios de Estrutura de Dados
+ PILHAS
+Questões Básicas 
+
+1. Escreva uma função em C que receba como parâmetro um ponteiro para o topo de uma pilha e um dado para empilhar. A função deve inserir o dado no topo da pila e retornar o endereço do novo topo. Obs: O dado pode ser qualquer tipo, recomendo um inteiro, para simplificar 
+
+// Subprograma para a operação push (empilhar)
+No* empilhar(No *topo) {
+    No *novo = malloc(sizeof(No));
+
+    if (novo == NULL) {
+        printf("Erro de alocação de memória!\n");
+        exit(1);
+    } else {
+        novo->p = ler_pessoas();
+        novo->prox = topo;
+        return novo;
+    }
+    return NULL;
+}
+
+
+2. Escreva um função em C que receba como parâmetro um ponteiro para o topo de uma pilha. A função deve retirar o elemento do topo e retorná-lo.
+
+// Subprograma para a operação pop (desempilhar)
+No* desempilhar(No **topo) {
+    if (*topo == NULL) {
+        printf("Erro! Pilha Vazia!!\n");
+        return NULL;
+    } else {
+        No *remover = *topo;
+        *topo = remover->prox;
+        return remover;
+    }
+}
+
+
+
+
+3. Escreva uma função em C que receba como parâmetro um ponteiro para o topo de uma pilha. A função deve verificar se a pilha está vazia e retornar verdadeiro ou falso. 
+
+// Função para verificar se a pilha está vazia
+int ta_vazia(No* topo) {
+
+ if (topo == NULL) {
+        printf("A pilha está vazia.\n");
+return 1;
+    }else{
+return 0;
+}
+}
+Desafio 
+
+
+▀▀▀▀█▀▀▀▀
+─▄▀█▀▀█──────▄
+█▄▄█▄▄██████▀
+▀▀█▀▀▀█▀▀
+─▀▀▀▀▀▀▀
+
+
+1. Crie um programa em linguagem C que simule o trabalho de uma empilhadeira. A empilhadeira deve retirar caixas (uma por vez) de uma pilha no almoxarifado e empilhar na prateleira de venda, sabendo que esta suporta apenas 20 caixas. Caso a prateleira esteja cheia, a empilhadeira deve aguardar até que uma caixa seja consumida. Da mesma forma, a pilha do almoxarifado também é limitada em 20 caixas e caso esteja vazia, a empilhadeira também deve aguardar. Sugestão: Crie uma função para alimentar aleatoriamente o almoxarifado e outra similar para consumir a prateleira de venda. 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <time.h>
+#include <unistd.h>  // Para usar sleep()
+
+typedef struct no {
+    int num;
+    struct no* prox;
+} No;
+
+// Função para empilhar uma caixa
+No* empilhar(No *topo, int caixa) {
+    No *novo = malloc(sizeof(No));
+    if (novo == NULL) {
+        printf("Erro de alocação de memória!\n");
+        exit(1);
+    }
+    novo->num = caixa;
+    novo->prox = topo;
+    return novo;
+}
+
+// Função para desempilhar uma caixa
+No* desempilhar(No **topo) {
+    if (*topo == NULL) {
+        printf("Erro! Pilha Vazia!!\n");
+        return NULL;
+    }
+    No *remover = *topo;
+    *topo = remover->prox;
+    free(remover);
+    return *topo;
+}
+
+// Função para exibir a pilha
+void imprimir_pilha(No *topo) {
+    No* atual = topo;
+    printf("\n------ PILHA ------\n");
+    while (atual != NULL) {
+        printf("[%d] ", atual->num);
+        atual = atual->prox;
+    }
+    printf("\n------ FIM PILHA ------\n");
+}
+
+// Programa principal
+int main() {
+    setlocale(LC_ALL, "");
+    srand(time(NULL));
+
+    No *topo = NULL;
+    int rodadas = 0;  // Contador de ciclos
+
+    while (1) {  // Loop infinito para manter a empilhadeira funcionando
+
+        printf("\nA empilhadeira está carregando caixas...\n");
+        sleep(1);  // Pequeno delay antes de começar
+
+        // Empilhar 20 caixas
+        for (int c = 1; c <= 20; c++) {
+            int valor = 10 + rand() % 90;  // Gera número entre 10 e 99
+            topo = empilhar(topo, valor);
+            printf("Caixa [%d] adicionada!\n", valor);
+            imprimir_pilha(topo);
+            usleep(500000);  // Delay de 0.5 segundos para visualização melhor
+        }
+
+        printf("\nPrateleira cheia! Aguardando retirada das caixas...\n");
+        sleep(2);  // Pequena pausa antes de começar a retirada
+
+        printf("\nA empilhadeira está retirando caixas...\n");
+
+        // Desempilhar todas as caixas
+        while (topo != NULL) {
+            topo = desempilhar(&topo);
+            printf("Caixa removida!\n");
+            imprimir_pilha(topo);
+            usleep(500000);  // Delay de 0.5 segundos
+        }
+
+        printf("\nTodas as caixas foram retiradas!\n");
+
+        rodadas++;
+        if (rodadas % 5 == 0) {  // A cada 5 rodadas, faz uma pausa para continuar
+            printf("\nO sistema fez 5 rodadas. Pressione ENTER para continuar...\n");
+            getchar();  // Aguarda o usuário pressionar ENTER
+        }
+
+        sleep(1);  // Pequena pausa antes da próxima rodada
+    }
+
+    return 0;
+}
+
+FILAS 
+
+Questões básicas 
+
+1. Escreva uma função em linguagem C que receba como parâmetro um ponteiro para uma fila e um dado para inserir. A função deve inserir o dado no final da fila.
+
+void inserir_na_fila(No **fila, int num)
+{
+	No *aux, *novo = malloc(sizeof(No));
+	
+	 if (novo == NULL) {
+        printf("Erro de alocação de memória!\n");
+        exit(1);
+    }else{
+    	novo->valor = num;
+    	novo->prox = NULL;
+    	if(*fila == NULL){
+    		*fila = novo;
+		}else{
+			aux = *fila;
+			while(aux->prox){
+				 aux = aux->prox;
+			}
+		aux->prox = novo;
+		}
+	}
+}
+
+
+2. Escreva uma função em linguagem C que receba como parâmetro um ponteiro para uma fila. A função deve extrair e retornar o primeiro elemento da fila. 
+
+No* remover_da_fila(No** fila)
+{
+	No *remover = NULL;
+	
+	if(*fila)
+	{
+		remover = *fila;
+		*fila = remover->prox;
+	}else{
+	printf("Fila vazia!\n");
+	}
+	return remover;
+}
+
+
+
+3. Escreva uma função em linguagem C que receba como parâmetro um ponteiro para uma fila. A função deve verificar se fila está vazia e retornar verdadeiro ou falso. 
+
+// Função para verificar se a fila está vazia
+int ta_vazia(No* fila) {
+
+ if (!fila) {
+        printf("A fila está vazia.\n");
+return 1;
+    }else{
+return 0;
+}
+}
+
+
+Desafio 
+
+1. Escreva um programa em linguagem C que simule uma fila de prioridades de estabelecimento comercial. As pessoas com prioridade são: Idosos, gestantes, pessoas com deficiência e pessoas com crianças de colo. O estabelecimento possui apenas um caixa, porém duas filas são formadas; uma para as prioridades e outra para o público em geral. Para atender a todos, o caixa deve seguir o seguinte critério: Para cada 3 pessoas da fila gral, deve atender um da fila com prioridade.
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+// ESTRUTURAS
+
+typedef struct no {
+    int valor;
+    struct no* prox;
+} No;
+
+// ESTRUTURA DA FILA
+
+typedef struct {
+    No *prim;
+    No *fim;
+    int tam;
+} Fila;
+
+// SUBPROGRAMAS
+
+// Criação da fila
+void criar_tadala_fila(Fila *fila) {
+    fila->prim = NULL;
+    fila->fim = NULL;
+    fila->tam = 0;
+}
+
+// Inserção no final da fila
+void inserir_tadala_fila(Fila *fila, int num) {
+    No *novo = malloc(sizeof(No));
+    if (novo == NULL) {
+        printf("Erro de alocação de memória!\n");
+        exit(1);
+    } else {
+        novo->valor = num;
+        novo->prox = NULL;
+        if (fila->prim == NULL) {
+            fila->prim = novo;
+            fila->fim = novo;
+        } else {
+            fila->fim->prox = novo;
+            fila->fim = novo;
+        }
+        fila->tam++;
+    }
+}
+
+// Inserção com prioridade
+void inserir_com_prioridade_tadala_fila(Fila *fila, int num) {
+    No *novo = malloc(sizeof(No));
+    if (novo == NULL) {
+        printf("Erro de alocação de memória!\n");
+        exit(1);
+    }
+
+    novo->valor = num;
+    novo->prox = NULL;
+
+    if (fila->prim == NULL) {
+        fila->prim = novo;
+        fila->fim = novo;
+    } else {
+        novo->prox = fila->prim;
+        fila->prim = novo;
+    }
+    fila->tam++;
+}
+
+// Remoção no início da fila
+No* remover_tadala_fila(Fila *fila) {
+    No *remover = NULL;
+    if (fila->prim) {
+        remover = fila->prim;
+        fila->prim = remover->prox;
+        fila->tam--;
+    } else {
+        printf("Fila vazia!\n");
+    }
+    return remover;
+}
+
+// Exibição da fila
+void imprimir_tadala_fila(Fila *fila) {
+    No *aux = fila->prim;
+    if (!aux) {
+        printf("A fila está vazia.\n");
+        return;
+    } else {
+        printf("\t======= FILA =======\n\t");
+        while (aux) {
+            printf("%.3d ", aux->valor);
+            aux = aux->prox;
+        }
+        printf("\n\t===== FIM FILA =====\n");
+    }
+}
+
+// Função para atender clientes
+void atender_clientes(Fila *geral, Fila *prioritaria) {
+    int contador = 0;
+
+    while (geral->tam > 0 || prioritaria->tam > 0) {
+        // Atende 3 da fila geral
+        for (int i = 0; i < 3 && geral->tam > 0; i++) {
+            No *r = remover_tadala_fila(geral);
+            printf("Atendido da fila geral: %d\n", r->valor);
+            free(r);
+        }
+
+        // Atende 1 da fila prioritária, se houver
+        if (prioritaria->tam > 0) {
+            No *r = remover_tadala_fila(prioritaria);
+            printf("Atendido da fila prioritária: %d\n", r->valor);
+            free(r);
+        }
+    }
+}
+
+// PROGRAMA PRINCIPAL
+
+int main() {
+    setlocale(LC_ALL, "");
+    No *r;
+    Fila fila_geral, fila_prioritaria;
+    int opcao, valor, prioridade;
+
+    criar_tadala_fila(&fila_geral);
+    criar_tadala_fila(&fila_prioritaria);
+
+    do {
+        printf("\n\t0 - Sair\n\t1 - Inserir na fila geral\n\t2 - Inserir na fila prioritária\n\t3 - Remover\n\t4 - Imprimir\n\t5 - Atender clientes");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                printf("\nDigite um valor para a fila geral: ");
+                scanf("%d", &valor);
+                inserir_tadala_fila(&fila_geral, valor);
+                break;
+
+            case 2:
+                printf("\nDigite um valor para a fila prioritária: ");
+                scanf("%d", &valor);
+                inserir_com_prioridade_tadala_fila(&fila_prioritaria, valor);
+                break;
+
+            case 3:
+                printf("\nEscolha de qual fila remover:\n1 - Fila Geral\n2 - Fila Prioritária\n");
+                int fila_remover;
+                scanf("%d", &fila_remover);
+                if (fila_remover == 1) {
+                    r = remover_tadala_fila(&fila_geral);
+                    if (r != NULL) {
+                        printf("Nó %d removido da fila geral.\n", r->valor);
+                        free(r);
+                    }
+                } else if (fila_remover == 2) {
+                    r = remover_tadala_fila(&fila_prioritaria);
+                    if (r != NULL) {
+                        printf("Nó %d removido da fila prioritária.\n", r->valor);
+                        free(r);
+                    }
+                }
+                break;
+
+            case 4:
+                printf("\nFila Geral:\n");
+                imprimir_tadala_fila(&fila_geral);
+                printf("\nFila Prioritária:\n");
+                imprimir_tadala_fila(&fila_prioritaria);
+                break;
+
+            case 5:
+                printf("\nAtendendo clientes...\n");
+                atender_clientes(&fila_geral, &fila_prioritaria);
+                break;
+
+            default:
+                if (opcao != 0) {
+                    printf("\nOpção inválida!!!\n");
+                }
+        }
+    } while (opcao != 0);
+
+    return 0;
+}
+
+Árvore Binária 
+
+Questões básicas 
+
+1. Escreva uma função em C que receba como parâmetro um ponteiro para a raiz de uma árvore binária de busca e um elemento numérico. A função deve inserir o elemento na árvore. 
+
+void inserir(ArvB *arv, int num)
+{
+    if(arv->raiz == NULL)
+    {
+        No *novo = (No*)malloc(sizeof(No));
+        novo->valor = num;
+        novo->esq = NULL;
+        novo->dir = NULL;
+        arv->raiz = novo;
+    }else{
+        if(num< arv->raiz->valor)
+        {
+            inserir_esq(arv->raiz, num);
+        }if(num> arv->raiz->valor){
+            inserir_dir(arv->raiz, num);
+        }
+    }
+}
+
+2. Escreva uma função em C que receba como parâmetro um ponteiro para a raiz de uma árvore binária de busca e um elemento numérico. A função deve apagar o elemento da árvore.
+
+//Remoção 
+
+No *remover(No *raiz, int chave){
+
+    if(raiz == NULL){
+        printf("Valor não encontrado!\n");
+        return NULL;
+    }else{
+        if(raiz->valor == chave){
+            //remove nós de folhas (nós sem filhos)
+            if(raiz->esq == NULL && raiz->dir == NULL){
+                free(raiz);
+                return NULL;
+
+            }else{
+                //remove nós que possuem apenas 1 filho
+                if(raiz->esq == NULL || raiz->dir == NULL){
+                    No *aux;
+                    if(raiz->esq != NULL){
+                        aux= raiz->esq;
+                    }else{
+                        aux = raiz->dir;
+                    }
+                    free(raiz);
+                    return aux;
+                }
+                else{
+                	No *auxi = raiz->esq;
+                	while(auxi->dir != NULL){
+                		auxi = auxi->dir;
+					}
+					raiz->valor = auxi->valor;
+					auxi->valor = chave;
+					raiz->esq = remover(raiz->esq, chave);
+					return raiz;
+                	
+				}
+            }
+            raiz->esq = remover(raiz->esq, chave);
+        }else{
+            if (chave < raiz->valor)
+            {
+                raiz->esq = remover(raiz->esq, chave);
+            }else{
+                raiz->dir = remover(raiz->dir, chave);
+            }
+             return raiz;
+        } 
+    }
+}
+
+
+
+3. Escreva uma função em C que receba como parâmetro um ponteiro para a raiz de uma árvore binária de busca. A função deve retornar a altura da árvore.
+
+int altura(No *raiz){
+	
+	if(raiz ==NULL || raiz->dir == NULL && raiz->esq == NULL){
+		return 0;
+	}else{
+		int esqu = 1+altura(raiz->esq);
+		int dire = 1+altura(raiz->dir);
+		//retorna o maior
+		
+		if(esqu>dire){
+			return esqu;
+		}else{
+			return dire;
+		}
+	}
+}
+
+
+4. Escreva uma função em C que receba como parâmetro um ponteiro para a raiz de uma árvore binária de busca e um elemento numérico. A função deve verificar se o elemento existe na árvore e retornar verdadeiro ou falso. 
+
+int busca(No *raiz, int chave)
+{
+    if(raiz == NULL)
+    {
+        return 0;
+    }else{
+        if(raiz->valor == chave){
+            return 1;
+        }else{
+            if(chave<raiz->valor){
+                return busca(raiz->esq, chave);
+            }else{
+                return busca(raiz->dir, chave);
+            }
+        }
+    }
+}
+
+5. Escreva as funções de caminhamento em uma árvore de busca. 
+
+Subprograma de pré ordem:
+
+void pre_ordem(No* raiz)
+{
+if(raiz==null){
+return;
+}
+printf(“%d”, raiz->num);
+pre_ordem(raiz->esquerda);
+pre_ordem(raiz->direita);
+}
+
+Subprograma de in-ordem:
+
+void in_ordem(No* raiz)
+{
+if(raiz==null){
+return;
+}
+in_ordem(raiz->esquerda);
+printf(“%d”, raiz->num);
+in_ordem(raiz->direita);
+}
+
+Subprograma de pós-ordem:
+
+void pos_ordem(No* raiz)
+{
+if(raiz==null){
+return;
+}
+pos_ordem(raiz->esquerda);
+pos_ordem(raiz->direita);
+printf(“%d”, raiz->num);
+
+}
+Desafio 
+
+ 1. Proceda com o caminhamento pós-ordem na árvore abaixo. Ao final, você obterá uma expressão. Pesquise sobre notação pós-fixada ou polonesa reversa. Tente entender o que significa, converta a expressão para a notação infixa e , finalmente, resolva a expressão.
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Estrutura do nó da árvore
+typedef struct no {
+    char valor;
+    struct no *esq;
+    struct no *dir;
+} No;
+
+// Estrutura da raiz da árvore
+typedef struct {
+    No *raiz;
+} ArvB;
+
+// Função para criar um novo nó
+No *criar_no(char valor) {
+    No *novo = (No*)malloc(sizeof(No));
+    novo->valor = valor;
+    novo->esq = NULL;
+    novo->dir = NULL;
+    return novo;
+}
+
+// Função que cria a árvore da expressão (2 + 3) × (6 - 2)
+No *construir_arvore() {
+    No *dois1 = criar_no('2');
+    No *tres = criar_no('3');
+    No *seis = criar_no('6');
+    No *dois2 = criar_no('2');
+
+    No *soma = criar_no('+');
+    soma->esq = dois1;
+    soma->dir = tres;
+
+    No *subtracao = criar_no('-');
+    subtracao->esq = seis;
+    subtracao->dir = dois2;
+
+    No *produto = criar_no('×');
+    produto->esq = soma;
+    produto->dir = subtracao;
+
+    return produto;
+}
+
+// Função para imprimir a árvore em pós-ordem
+void imprimir_pos_ordem(No *raiz) {
+    if (raiz != NULL) {
+        imprimir_pos_ordem(raiz->esq);
+        imprimir_pos_ordem(raiz->dir);
+        printf("%c ", raiz->valor);
+    }
+}
+
+// Função para liberar memória da árvore
+void liberar_arvore(No *raiz) {
+    if (raiz != NULL) {
+        liberar_arvore(raiz->esq);
+        liberar_arvore(raiz->dir);
+        free(raiz);
+    }
+}
+
+// Programa principal
+int main() {
+    int op;
+    ArvB arv;
+    arv.raiz = construir_arvore();  // Criando a árvore fixa
+
+    do {
+        printf("\n\t0 - Sair\n\t1 - Imprimir Pós-Ordem\n");
+        scanf("%d", &op);
+
+        switch (op) {
+            case 0:
+                printf("\nSaindo...\n");
+                break;
+
+            case 1:
+                printf("\nPercurso Pós-Ordem:\n");
+                imprimir_pos_ordem(arv.raiz);
+                printf("\n");
+                break;
+
+            default:
+                printf("Opção inválida!!\n");
+        }
+    } while (op != 0);
+
+    liberar_arvore(arv.raiz);  // Liberando a memória
+    return 0;
+}
